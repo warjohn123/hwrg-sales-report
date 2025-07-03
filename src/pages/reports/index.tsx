@@ -1,23 +1,8 @@
-import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-
-interface Report {
-  id: number;
-  title: string;
-  created_at: string;
-}
+import { Link, useNavigate } from "react-router-dom";
+import ReportsList from "../../components/reports/list";
 
 export default function ReportsPage() {
   const navigate = useNavigate();
-  const [reports, setReports] = useState<Report[]>([]);
-  // Simulated fetch
-  useEffect(() => {
-    // Replace this with Supabase/API fetch
-    setReports([
-      { id: 1, title: "Sales Report - July 3", created_at: "2025-07-03" },
-      { id: 2, title: "Sales Report - July 2", created_at: "2025-07-02" },
-    ]);
-  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("user"); // Replace with Supabase signOut if needed
@@ -45,32 +30,7 @@ export default function ReportsPage() {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white shadow rounded-md overflow-hidden">
-          <thead>
-            <tr className="bg-gray-100 text-left">
-              <th className="px-4 py-3 border-b">Title</th>
-              <th className="px-4 py-3 border-b">Date Created</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reports.length > 0 ? (
-              reports.map((report) => (
-                <tr key={report.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 border-b text-blue-600 underline">
-                    <Link to={`/reports/${report.id}`}>{report.title}</Link>
-                  </td>
-                  <td className="px-4 py-3 border-b">{report.created_at}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={2} className="px-4 py-6 text-center text-gray-500">
-                  No reports available.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        <ReportsList />
       </div>
     </div>
   );

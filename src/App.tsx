@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./pages/login";
-import ReportsPage from "./pages/reports";
-import ReportDetailPage from "./pages/report-detail";
 import ReportCreatePage from "./pages/report-create";
+import ReportDetailPage from "./pages/report-detail";
+import ReportsPage from "./pages/reports";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
