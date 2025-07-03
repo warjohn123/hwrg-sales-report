@@ -1,14 +1,14 @@
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
-export default function LoginForm() {
+export default function LoginForm({
+  handleLogin,
+}: {
+  handleLogin: () => void;
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleLogin = () => {
-    console.log("works");
-  };
 
   return (
     <>
@@ -47,7 +47,7 @@ export default function LoginForm() {
 
       <button
         onClick={handleLogin}
-        className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
+        className="w-full bg-blue-600 cursor-pointer text-white py-2 rounded-md hover:bg-blue-700 transition"
       >
         Login
       </button>

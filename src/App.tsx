@@ -1,34 +1,48 @@
 import { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import LoginPage from "./pages/login/login";
-import DashboardPage from "./pages/dashboard/dashboard";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
+import LoginPage from "./pages/login";
+import ReportsPage from "./pages/reports";
+import ReportDetailPage from "./pages/report-detail";
+import ReportCreatePage from "./pages/report-create";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // Check auth on load (could be from localStorage or Supabase)
-  useEffect(() => {
-    const user = localStorage.getItem("user"); // Or fetch from auth
-    setIsLoggedIn(!!user);
-  }, []);
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user"); // Or fetch from auth
+  //   setIsLoggedIn(!!user);
+  // }, []);
 
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
+        {/* Protected routes */}
         <Route
-          path="/"
+          path="/reports"
           element={
-            isLoggedIn ? <Navigate to="/dashboard" replace /> : <LoginPage />
+            <ProtectedRoute isAuthenticated={isLoggedIn}>
+              <ReportsPage />
+            </ProtectedRoute>
           }
         />
         <Route
-          path="/dashboard"
-          element={isLoggedIn ? <DashboardPage /> : <Navigate to="/" replace />}
+          path="/reports/:id"
+          element={
+            <ProtectedRoute isAuthenticated={isLoggedIn}>
+              <ReportDetailPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reports/create"
+          element={
+            <ProtectedRoute isAuthenticated={isLoggedIn}>
+              <ReportCreatePage />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </Router>
