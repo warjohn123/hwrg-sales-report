@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import type { SalesReport } from "../../../@types/Report";
+import type { SalesReport } from "../../../@types/SalesReport";
 
 export default function ChickyOinkReportsList() {
   const [reports, setReports] = useState<SalesReport[]>([]);
