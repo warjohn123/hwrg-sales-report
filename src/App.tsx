@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,7 +9,7 @@ import LoginPage from "./pages/login/login";
 import DashboardPage from "./pages/dashboard/dashboard";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // Check auth on load (could be from localStorage or Supabase)
   useEffect(() => {
