@@ -1,27 +1,86 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import type {
+  ChickyOinkSales,
   IChickyOinkReport,
   IChickyOinkReportInventory,
 } from "../../../../@types/ChickyOinkReport";
 import type { IExpense } from "../../../../@types/SalesReport";
 
-export interface ReportContextType extends IChickyOinkReport {
-  setRegularChicken: (val: number) => void;
-  setSpicyChicken: (val: number) => void;
-  setRegularLiempo: (val: number) => void;
-  setSpicyLiempo: (val: number) => void;
-  setLiog: (val: number) => void;
-  setSpicyLiog: (val: number) => void;
-  setPoso: (val: number) => void;
-  setAtcharaSmall: (val: number) => void;
-  setAtcharaBig: (val: number) => void;
-  setUling: (val: number) => void;
-  setCash: (cash: number) => void;
-  setCashFund: (cashFund: number) => void;
-  setOnDuty: (onDuty: string) => void;
-  setPreparedBy: (preparedBy: string) => void;
-  setExpenses: (expenses: IExpense) => void;
-  setInventory: (inventory: IChickyOinkReportInventory) => void;
+export interface ChickyOinkReportContextType {
+  sales: ChickyOinkSales;
+  inventory: IChickyOinkReportInventory;
+  expenses: IExpense[];
+  setSales: (val: ChickyOinkSales) => void;
+  setInventory: (val: IChickyOinkReportInventory) => void;
+  setExpenses: React.Dispatch<React.SetStateAction<IExpense[]>>;
 }
 
-export const ReportContext = createContext<ReportContextType | null>(null);
+export const ChickyOinkReportContext =
+  createContext<ChickyOinkReportContextType | null>(null);
+
+interface ReportContextProviderProps {
+  children: React.ReactNode;
+  report?: IChickyOinkReport;
+}
+
+const initialSales: ChickyOinkSales = {
+  spicy_chicken: 0,
+  regular_chicken: 0,
+  regular_liempo: 0,
+  spicy_liempo: 0,
+  uling: 0,
+  atchara_big: 0,
+  poso: 0,
+  atchara_small: 0,
+  liog: 0,
+  spicy_liog: 0,
+};
+
+const defaultInventoryItem = {
+  initial_stocks: 0,
+  delivered: 0,
+  pull_out: 0,
+  sales: 0,
+  remaining_stocks: 0,
+  notes: "",
+};
+
+const initialInventory: IChickyOinkReportInventory = {
+  regular_chicken: defaultInventoryItem,
+  regular_liempo: defaultInventoryItem,
+  spicy_chicken: defaultInventoryItem,
+  spicy_liempo: defaultInventoryItem,
+  liog: defaultInventoryItem,
+  spicy_liog: defaultInventoryItem,
+  atchara_big: defaultInventoryItem,
+  atchara_small: defaultInventoryItem,
+  poso: defaultInventoryItem,
+  uling: defaultInventoryItem,
+};
+
+const ChickyOinkReportContextProvider = ({
+  children,
+  report,
+}: ReportContextProviderProps) => {
+  const [sales, setSales] = useState<ChickyOinkSales>(initialSales);
+  const [inventory, setInventory] =
+    useState<IChickyOinkReportInventory>(initialInventory);
+  const [expenses, setExpenses] = useState<IExpense[]>([]);
+
+  return (
+    <ChickyOinkReportContext.Provider
+      value={{
+        sales,
+        inventory,
+        expenses,
+        setSales,
+        setInventory,
+        setExpenses,
+      }}
+    >
+      {children}
+    </ChickyOinkReportContext.Provider>
+  );
+};
+
+export default ChickyOinkReportContextProvider;

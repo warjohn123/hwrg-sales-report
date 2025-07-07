@@ -1,5 +1,5 @@
-import ChickyOinkCreateReport from "../../components/reports/create/chicky-oink/ChickyOinkCreateReport";
+import ChickyOinkReport from "../../components/reports/create/chicky-oink/ChickyOinkReport";
 
 export default function ReportCreatePage() {
-  return <ChickyOinkCreateReport />;
+  return <ChickyOinkReport />;
 }
