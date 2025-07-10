@@ -5,9 +5,17 @@ import {
 } from "../../../../context/chickyReportContext";
 
 export default function ChickyOinkSummary() {
-  const { setCash, setCashFund, setPreparedBy, setOnDuty } = useContext(
-    ChickyOinkReportContext
-  ) as ChickyOinkReportContextType;
+  const {
+    setCash,
+    setCashFund,
+    setPreparedBy,
+    setOnDuty,
+    totalSales,
+    totalExpenses,
+    cash,
+  } = useContext(ChickyOinkReportContext) as ChickyOinkReportContextType;
+
+  const totalRemit = totalSales - totalExpenses;
 
   return (
     <div>
@@ -49,6 +57,14 @@ export default function ChickyOinkSummary() {
             onChange={(e) => setPreparedBy(e.target.value)}
           />
         </div>
+      </div>
+      <div className="mt-5">
+        {totalRemit - cash > 0 && (
+          <h1 className="text-red-500">SHORT: Php {totalRemit - cash}</h1>
+        )}
+        {cash - totalRemit > 0 && (
+          <h1 className="text-green-500">OVER: Php {cash - totalRemit}</h1>
+        )}
       </div>
     </div>
   );
