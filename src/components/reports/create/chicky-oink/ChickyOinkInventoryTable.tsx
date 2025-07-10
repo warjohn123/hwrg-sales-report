@@ -10,7 +10,7 @@ export default function ChickyOinkInventoryTable() {
   ) as ChickyOinkReportContextType;
 
   return (
-    <div className="overflow-x-auto mt-5">
+    <div className="overflow-x-auto mt-5 text-xs">
       <div className="min-w-max">
         <table className="table-auto w-full border-collapse">
           <thead>
