@@ -119,7 +119,7 @@ const ChickyOinkReportContextProvider = ({
         setPreparedBy,
       }}
     >
-      {children}
+      <div className="p-5">{children}</div>
     </ChickyOinkReportContext.Provider>
   );
 };

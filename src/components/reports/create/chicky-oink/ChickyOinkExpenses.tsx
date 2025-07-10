@@ -22,13 +22,18 @@ export default function ChickyOinkExpenses() {
 
   return (
     <div className="mt-5 mb-5">
-      <h1 className="font-bold text-xl">Expenses</h1>
-
-      {expenses.map((expense, index) => (
-        <ExpenseRow index={index} />
-      ))}
-
-      <Button buttonType="primary" text="Add expense" onClick={onAddExpense} />
+      <div className="flex flex-col gap-5">
+        <h1 className="font-bold text-2xl">Expenses</h1>
+        {expenses.map((_, index) => (
+          <ExpenseRow index={index} />
+        ))}
+        <Button
+          buttonType="primary"
+          text="Add expense"
+          className="w-40"
+          onClick={onAddExpense}
+        />
+      </div>
 
       <div className="mt-5">
         <h4 className="font-bold text-lg">TOTAL EXPENSES: {totalExpenses}</h4>
