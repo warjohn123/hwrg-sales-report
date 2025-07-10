@@ -71,7 +71,6 @@ const initialInventory: IChickyOinkReportInventory = {
 
 const ChickyOinkReportContextProvider = ({
   children,
-  report,
 }: ReportContextProviderProps) => {
   const [sales, setSales] = useState<ChickyOinkSales>(initialSales);
   const [inventory, setInventory] =
