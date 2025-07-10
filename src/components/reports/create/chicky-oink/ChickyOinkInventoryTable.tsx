@@ -15,14 +15,14 @@ export default function ChickyOinkInventoryTable() {
         <table className="table-auto w-full border-collapse">
           <thead>
             <tr>
-              <th className="sticky left-0 bg-white z-10 border px-4 py-2">
+              <th className="sticky left-0 bg-white z-10 border w-40 py-2">
                 Item
               </th>
-              <th className="border px-4 py-2">Initial Stocks</th>
-              <th className="border px-4 py-2">Delivered</th>
-              <th className="border px-4 py-2">Pull-Out</th>
-              <th className="border px-4 py-2">Sales</th>
-              <th className="border px-4 py-2">Remaining Stocks</th>
+              <th className="border w-30 py-2">Initial Stocks</th>
+              <th className="border w-20 py-2">Delivered</th>
+              <th className="border w-30 py-2">Pull-Out</th>
+              <th className="border w-30 py-2">Sales</th>
+              <th className="border w-30 py-2">Remaining Stocks</th>
               <th className="border px-4 py-2">Notes</th>
             </tr>
           </thead>
@@ -35,10 +35,10 @@ export default function ChickyOinkInventoryTable() {
                 <td className="border px-4 py-2">
                   {inventory[key].initial_stocks}
                 </td>
-                <td className="border px-4 py-2">
+                <td className="border px-4 py-2 w-30">
                   <input
                     type="number"
-                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-20 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={inventory[key].delivered}
                     onChange={(e) =>
                       setInventory({
