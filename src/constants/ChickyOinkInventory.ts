@@ -3,7 +3,7 @@ import type { ChickyOinkSales } from "../@types/ChickyOinkReport";
 export interface IInventoryItem {
   name: string;
   attribute: keyof ChickyOinkSales;
-  price?: number;
+  price: number;
 }
 
 export const CHICKY_OINK_INVENTORY: { [key: string]: IInventoryItem } = {
@@ -33,7 +33,7 @@ export const CHICKY_OINK_INVENTORY: { [key: string]: IInventoryItem } = {
     attribute: "spicy_liog",
     price: 12,
   },
-  POSO: { name: "poso", attribute: "poso", price: 310 },
+  POSO: { name: "poso", attribute: "poso", price: 8 },
   ATCHARA_SMALL: {
     name: "Atchara Small",
     attribute: "atchara_small",
@@ -44,5 +44,5 @@ export const CHICKY_OINK_INVENTORY: { [key: string]: IInventoryItem } = {
     attribute: "atchara_big",
     price: 70,
   },
-  ULING: { name: "Uling", attribute: "uling" },
+  ULING: { name: "Uling", attribute: "uling", price: 0 },
 };

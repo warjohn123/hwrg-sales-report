@@ -2,7 +2,7 @@ import { useContext } from "react";
 import {
   ChickyOinkReportContext,
   type ChickyOinkReportContextType,
-} from "./chickyReportContext";
+} from "../../../../context/chickyReportContext";
 import type { IExpense } from "../../../../@types/SalesReport";
 
 interface Props {

@@ -1,12 +1,14 @@
 import ChickyOinkExpenses from "./ChickyOinkExpenses";
 import ChickyOinkSalesReport from "./ChickyOinkSalesReport";
-import ChickyOinkReportContextProvider from "./chickyReportContext";
+import ChickyOinkSummary from "./ChickyOinkSummary";
+import ChickyOinkReportContextProvider from "../../../../context/chickyReportContext";
 
 export default function ChickyOinkReport() {
   return (
     <ChickyOinkReportContextProvider>
       <ChickyOinkSalesReport />
       <ChickyOinkExpenses />
+      <ChickyOinkSummary />
     </ChickyOinkReportContextProvider>
   );
 }

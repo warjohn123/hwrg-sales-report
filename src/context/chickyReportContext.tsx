@@ -3,16 +3,27 @@ import type {
   ChickyOinkSales,
   IChickyOinkReport,
   IChickyOinkReportInventory,
-} from "../../../../@types/ChickyOinkReport";
-import type { IExpense } from "../../../../@types/SalesReport";
+} from "../@types/ChickyOinkReport";
+import type { IExpense } from "../@types/SalesReport";
+import { CHICKY_OINK_INVENTORY } from "../constants/ChickyOinkInventory";
 
 export interface ChickyOinkReportContextType {
   sales: ChickyOinkSales;
   inventory: IChickyOinkReportInventory;
   expenses: IExpense[];
+  cash: number;
+  cashFund: number;
+  preparedBy: string;
+  totalSales: number;
+  totalExpenses: number;
+  onDuty: string;
   setSales: (val: ChickyOinkSales) => void;
   setInventory: (val: IChickyOinkReportInventory) => void;
   setExpenses: React.Dispatch<React.SetStateAction<IExpense[]>>;
+  setCash: (val: number) => void;
+  setCashFund: (val: number) => void;
+  setPreparedBy: (val: string) => void;
+  setOnDuty: (val: string) => void;
 }
 
 export const ChickyOinkReportContext =
@@ -66,6 +77,26 @@ const ChickyOinkReportContextProvider = ({
   const [inventory, setInventory] =
     useState<IChickyOinkReportInventory>(initialInventory);
   const [expenses, setExpenses] = useState<IExpense[]>([]);
+  const [cash, setCash] = useState<number>(0);
+  const [cashFund, setCashFund] = useState<number>(0);
+  const [preparedBy, setPreparedBy] = useState<string>("");
+  const [onDuty, setOnDuty] = useState<string>("");
+
+  const totalSales =
+    sales.regular_chicken * CHICKY_OINK_INVENTORY.REGULAR_CHICKEN.price +
+    sales.spicy_chicken * CHICKY_OINK_INVENTORY.SPICY_CHICKEN.price +
+    sales.regular_liempo * CHICKY_OINK_INVENTORY.REGULAR_LIEMPO.price +
+    sales.spicy_liempo * CHICKY_OINK_INVENTORY.SPICY_LIEMPO.price +
+    sales.liog * CHICKY_OINK_INVENTORY.LIOG.price +
+    sales.spicy_liog * CHICKY_OINK_INVENTORY.SPICY_LIOG.price +
+    sales.poso * CHICKY_OINK_INVENTORY.POSO.price +
+    sales.atchara_small * CHICKY_OINK_INVENTORY.ATCHARA_SMALL.price +
+    sales.atchara_big * CHICKY_OINK_INVENTORY.ATCHARA_BIG.price;
+
+  const totalExpenses = expenses.reduce(
+    (partialSum, expense) => partialSum + (expense.value || 0),
+    0
+  );
 
   return (
     <ChickyOinkReportContext.Provider
@@ -73,9 +104,19 @@ const ChickyOinkReportContextProvider = ({
         sales,
         inventory,
         expenses,
+        cash,
+        cashFund,
+        preparedBy,
+        totalSales,
+        totalExpenses,
+        onDuty,
+        setOnDuty,
         setSales,
         setInventory,
         setExpenses,
+        setCash,
+        setCashFund,
+        setPreparedBy,
       }}
     >
       {children}

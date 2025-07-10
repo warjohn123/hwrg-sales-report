@@ -3,7 +3,7 @@ import type { IInventoryItem } from "../../../../constants/ChickyOinkInventory";
 import {
   ChickyOinkReportContext,
   type ChickyOinkReportContextType,
-} from "./chickyReportContext";
+} from "../../../../context/chickyReportContext";
 
 interface Props {
   inventoryItem: IInventoryItem;

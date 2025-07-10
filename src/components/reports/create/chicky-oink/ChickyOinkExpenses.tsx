@@ -2,7 +2,7 @@ import { useContext } from "react";
 import {
   ChickyOinkReportContext,
   type ChickyOinkReportContextType,
-} from "./chickyReportContext";
+} from "../../../../context/chickyReportContext";
 import Button from "../../../UI/Button";
 import ExpenseRow from "./ExpenseRow";
 
