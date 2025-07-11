@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import ReportsList from "../../components/reports/list";
+import { supabase } from "../../lib/supabase";
 
 export default function ReportsPage() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("user"); // Replace with Supabase signOut if needed
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     navigate("/");
   };
 

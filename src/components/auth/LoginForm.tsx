@@ -3,8 +3,10 @@ import { useState } from "react";
 
 export default function LoginForm({
   handleLogin,
+  isLoggingIn,
 }: {
-  handleLogin: () => void;
+  handleLogin: (email: string, password: string) => void;
+  isLoggingIn: boolean;
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,10 +48,11 @@ export default function LoginForm({
       </div>
 
       <button
-        onClick={handleLogin}
+        disabled={isLoggingIn}
+        onClick={() => handleLogin(email, password)}
         className="w-full bg-blue-600 cursor-pointer text-white py-2 rounded-md hover:bg-blue-700 transition"
       >
-        Login
+        {isLoggingIn ? "Logging in" : "Login"}
       </button>
     </>
   );

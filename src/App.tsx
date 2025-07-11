@@ -18,7 +18,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/" element={<LoginPage />} />
         {/* Protected routes */}
         <Route
           path="/reports"
