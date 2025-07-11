@@ -1,5 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import ChickyOinkReport from "../../components/reports/create/chicky-oink/ChickyOinkReport";
+import Button from "../../components/UI/Button";
 
 export default function ReportCreatePage() {
-  return <ChickyOinkReport />;
+  const navigate = useNavigate();
+  return (
+    <div className="p-5">
+      <Button
+        text="Back"
+        onClick={() => navigate("/reports")}
+        buttonType="primary"
+      />
+      <ChickyOinkReport />
+    </div>
+  );
 }

@@ -7,8 +7,6 @@ import ReportDetailPage from "./pages/report-detail";
 import ReportsPage from "./pages/reports";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
   // Check auth on load (could be from localStorage or Supabase)
   // useEffect(() => {
   //   const user = localStorage.getItem("user"); // Or fetch from auth
@@ -23,7 +21,7 @@ function App() {
         <Route
           path="/reports"
           element={
-            <ProtectedRoute isAuthenticated={isLoggedIn}>
+            <ProtectedRoute>
               <ReportsPage />
             </ProtectedRoute>
           }
@@ -31,7 +29,7 @@ function App() {
         <Route
           path="/reports/:id"
           element={
-            <ProtectedRoute isAuthenticated={isLoggedIn}>
+            <ProtectedRoute>
               <ReportDetailPage />
             </ProtectedRoute>
           }
@@ -39,7 +37,7 @@ function App() {
         <Route
           path="/reports/create"
           element={
-            <ProtectedRoute isAuthenticated={isLoggedIn}>
+            <ProtectedRoute>
               <ReportCreatePage />
             </ProtectedRoute>
           }
