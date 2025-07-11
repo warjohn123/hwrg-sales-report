@@ -7,6 +7,11 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
   const handleLogin = async (email: string, password: string) => {
+    if (!email || !password) {
+      alert("Please enter email and password");
+      return;
+    }
+
     setIsLoggingIn(true);
     const { error } = await supabase.auth.signInWithPassword({
       email,

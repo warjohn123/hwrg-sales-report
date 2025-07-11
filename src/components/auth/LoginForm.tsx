@@ -13,7 +13,12 @@ export default function LoginForm({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleLogin(email, password);
+      }}
+    >
       <div className="mb-4">
         <label className="block text-gray-700 mb-2">Email</label>
         <input
@@ -49,11 +54,11 @@ export default function LoginForm({
 
       <button
         disabled={isLoggingIn}
-        onClick={() => handleLogin(email, password)}
+        type="submit"
         className="w-full bg-blue-600 cursor-pointer text-white py-2 rounded-md hover:bg-blue-700 transition"
       >
         {isLoggingIn ? "Logging in" : "Login"}
       </button>
-    </>
+    </form>
   );
 }

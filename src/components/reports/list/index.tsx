@@ -3,15 +3,10 @@ import { Link } from "react-router-dom";
 import type { SalesReport } from "../../../@types/SalesReport";
 
 export default function ChickyOinkReportsList() {
-  const [reports, setReports] = useState<SalesReport[]>([]);
-  // Simulated fetch
-  useEffect(() => {
-    // Replace this with Supabase/API fetch
-    setReports([
-      { id: "1", title: "Sales Report - July 3", date: "2025-07-03" },
-      { id: "2", title: "Sales Report - July 2", date: "2025-07-02" },
-    ] as SalesReport[]);
-  }, []);
+  const [reports] = useState<SalesReport[]>([]);
+
+  useEffect(() => {}, []);
+
   return (
     <table className="min-w-full bg-white shadow rounded-md overflow-hidden">
       <thead>
@@ -27,7 +22,7 @@ export default function ChickyOinkReportsList() {
               <td className="px-4 py-3 border-b text-blue-600 underline">
                 <Link to={`/reports/${report.id}`}>{report.title}</Link>
               </td>
-              <td className="px-4 py-3 border-b">{report.date}</td>
+              <td className="px-4 py-3 border-b">{report.report_date}</td>
             </tr>
           ))
         ) : (

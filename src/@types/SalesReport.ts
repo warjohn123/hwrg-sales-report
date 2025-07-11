@@ -17,7 +17,7 @@ export interface IInventoryFormat {
 export interface SalesReport {
   id: string;
   title: string;
-  date: string;
+  report_date: string;
   cash: number;
   cash_fund: number;
   total_remit: number;
@@ -26,6 +26,7 @@ export interface SalesReport {
   over: number;
   on_duty: string;
   prepared_by: string;
-  expenses: IExpense;
-  report_for: IAssignment;
+  type: IAssignment;
+  expenses: IExpense[];
+  branch: string;
 }
