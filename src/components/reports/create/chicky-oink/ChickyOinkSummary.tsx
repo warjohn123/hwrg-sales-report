@@ -43,7 +43,7 @@ export default function ChickyOinkSummary() {
           <div className="w-24">On Duty</div>
           <input
             className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Prepared by"
+            placeholder="On Duty"
             type="string"
             onChange={(e) => setOnDuty(e.target.value)}
           />
