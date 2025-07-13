@@ -28,7 +28,7 @@ export default function ChickyOinkInventoryTable() {
           </thead>
           <tbody>
             {Object.keys(inventory).map((key: string) => (
-              <tr>
+              <tr key={key}>
                 <td className="sticky left-0 bg-white z-10 border px-4 py-2">
                   {key.replace("_", " ").toUpperCase()}
                 </td>

@@ -17,7 +17,7 @@ export default function ChickyOinkSalesReport() {
 
       <div className="mt-5 flex flex-col gap-3">
         {Object.entries(CHICKY_OINK_INVENTORY).map(([key]) => (
-          <ItemizedRow inventoryItem={CHICKY_OINK_INVENTORY[key]} />
+          <ItemizedRow key={key} inventoryItem={CHICKY_OINK_INVENTORY[key]} />
         ))}
       </div>
 

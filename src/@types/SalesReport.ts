@@ -15,15 +15,15 @@ export interface IInventoryFormat {
 }
 
 export interface SalesReport {
-  id: string;
+  id?: string;
   title: string;
   report_date: string;
   cash: number;
   cash_fund: number;
-  total_remit: number;
-  total_sales: number;
-  short: number;
-  over: number;
+  // total_remit: number;
+  // total_sales: number;
+  // short: number;
+  // over: number;
   on_duty: string;
   prepared_by: string;
   type: IAssignment;

@@ -16,7 +16,10 @@ export default function Button({
     danger: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600",
   };
   return (
-    <button onClick={onClick} className={`${styles[buttonType]} ${className}`}>
+    <button
+      onClick={onClick}
+      className={`cursor-pointer ${styles[buttonType]} ${className}`}
+    >
       {text}
     </button>
   );
