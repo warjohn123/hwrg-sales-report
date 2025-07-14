@@ -16,3 +16,22 @@ export async function createSalesReport(report: IChickyOinkReport) {
     console.error(e);
   }
 }
+
+export async function getReportsByUserId(
+  user_id: string,
+  pageNumber: number,
+  pageSize: number
+) {
+  try {
+    const res = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/api/sales-reports/${user_id}?page=${pageNumber}&limit=${pageSize}`
+    );
+
+    return res.json();
+  } catch (e) {
+    console.log("e", e);
+    console.error(e);
+  }
+}

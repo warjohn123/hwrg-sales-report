@@ -5,9 +5,11 @@ import {
 } from "../../../../context/chickyReportContext";
 
 export default function ChickyOinkInventoryTable() {
-  const { inventory, setInventory } = useContext(
+  const { inventory, selectedBranch, setInventory } = useContext(
     ChickyOinkReportContext
   ) as ChickyOinkReportContextType;
+
+  if (!!!selectedBranch) return <></>;
 
   return (
     <div className="overflow-x-auto mt-5 text-xs">
@@ -38,20 +40,45 @@ export default function ChickyOinkInventoryTable() {
                 <td className="border px-4 py-2 w-30">
                   <input
                     type="number"
-                    className="w-20 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-25 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={inventory[key].delivered}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      console.log("number", e.target.value);
                       setInventory({
                         ...inventory,
                         [key]: {
                           ...inventory[key],
-                          delivered: parseInt(e.target.value),
+                          delivered: parseFloat(e.target.value),
+                          remaining_stocks:
+                            inventory[key].initial_stocks +
+                            parseFloat(e.target.value) -
+                            (inventory[key].sales + inventory[key].pull_out),
                         },
-                      })
-                    }
+                      });
+                    }}
                   />
                 </td>
-                <td className="border px-4 py-2">{inventory[key].pull_out}</td>
+                <td className="border px-4 py-2">
+                  {/* {inventory[key].pull_out} */}
+                  <input
+                    type="number"
+                    className="w-25 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={inventory[key].pull_out}
+                    onChange={(e) => {
+                      setInventory({
+                        ...inventory,
+                        [key]: {
+                          ...inventory[key],
+                          pull_out: parseFloat(e.target.value),
+                          remaining_stocks:
+                            inventory[key].initial_stocks +
+                            inventory[key].delivered -
+                            (inventory[key].sales + parseFloat(e.target.value)),
+                        },
+                      });
+                    }}
+                  />
+                </td>
                 <td className="border px-4 py-2">{inventory[key].sales}</td>
                 <td className="border px-4 py-2">
                   {inventory[key].remaining_stocks}

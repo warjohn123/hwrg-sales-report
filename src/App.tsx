@@ -4,6 +4,7 @@ import LoginPage from "./pages/login";
 import ReportCreatePage from "./pages/report-create";
 import ReportDetailPage from "./pages/report-detail";
 import ReportsPage from "./pages/reports";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   // Check auth on load (could be from localStorage or Supabase)
@@ -42,6 +43,7 @@ function App() {
           }
         />
       </Routes>
+      <ToastContainer />
     </Router>
   );
 }

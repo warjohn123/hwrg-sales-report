@@ -20,7 +20,7 @@ export default function ItemizedRow({ inventoryItem }: Props) {
       <span>
         <input
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="quantity"
+          placeholder="Quantity"
           type="number"
           onChange={(e) => {
             setSales({ ...sales, [inventoryItem.attribute]: e.target.value });
@@ -28,10 +28,12 @@ export default function ItemizedRow({ inventoryItem }: Props) {
               ...inventory,
               [inventoryItem.attribute]: {
                 ...inventory[inventoryItem.attribute],
-                sales: parseInt(e.target.value),
+                sales: parseFloat(e.target.value),
                 remaining_stocks:
+                  inventory[inventoryItem.attribute].delivered +
                   inventory[inventoryItem.attribute].initial_stocks -
-                  parseInt(e.target.value),
+                  (parseFloat(e.target.value) +
+                    inventory[inventoryItem.attribute].pull_out),
               },
             });
           }}

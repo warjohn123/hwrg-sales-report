@@ -2,6 +2,7 @@ interface Props {
   text: string;
   className?: string;
   buttonType: "primary" | "danger";
+  disabled?: boolean;
   onClick: () => void;
 }
 
@@ -9,6 +10,7 @@ export default function Button({
   text,
   buttonType,
   className,
+  disabled = false,
   onClick,
 }: Props) {
   const styles = {
@@ -18,6 +20,7 @@ export default function Button({
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       className={`cursor-pointer ${styles[buttonType]} ${className}`}
     >
       {text}

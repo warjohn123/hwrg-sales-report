@@ -7,7 +7,7 @@ import Button from "../../../UI/Button";
 import ExpenseRow from "./ExpenseRow";
 
 export default function ChickyOinkExpenses() {
-  const { setExpenses, expenses } = useContext(
+  const { setExpenses, expenses, selectedBranch } = useContext(
     ChickyOinkReportContext
   ) as ChickyOinkReportContextType;
 
@@ -19,6 +19,8 @@ export default function ChickyOinkExpenses() {
   const onAddExpense = () => {
     setExpenses([...expenses, { name: "", value: 0 }]);
   };
+
+  if (!!!selectedBranch) return <></>;
 
   return (
     <div className="mt-5 mb-5">

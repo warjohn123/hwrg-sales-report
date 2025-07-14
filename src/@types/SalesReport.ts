@@ -28,5 +28,6 @@ export interface SalesReport {
   prepared_by: string;
   type: IAssignment;
   expenses: IExpense[];
-  branch: string;
+  branch_id: number; //FK to branches table
+  user_id: string; //FK to users table
 }

@@ -7,9 +7,11 @@ import {
 } from "../../../../context/chickyReportContext";
 
 export default function ChickyOinkSalesReport() {
-  const { totalSales } = useContext(
+  const { totalSales, selectedBranch } = useContext(
     ChickyOinkReportContext
   ) as ChickyOinkReportContextType;
+
+  if (!!!selectedBranch) return <></>;
 
   return (
     <div className="mt-5 mb-5">

@@ -10,12 +10,15 @@ export default function ChickyOinkSummary() {
     setCashFund,
     setPreparedBy,
     setOnDuty,
+    selectedBranch,
     totalSales,
     totalExpenses,
     cash,
   } = useContext(ChickyOinkReportContext) as ChickyOinkReportContextType;
 
   const totalRemit = totalSales - totalExpenses;
+
+  if (!!!selectedBranch) return <></>;
 
   return (
     <div>
