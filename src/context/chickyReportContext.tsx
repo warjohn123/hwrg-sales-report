@@ -6,6 +6,7 @@ import type {
 } from "../@types/ChickyOinkReport";
 import type { IExpense } from "../@types/SalesReport";
 import { CHICKY_OINK_INVENTORY } from "../constants/ChickyOinkInventory";
+import type { IBranchAssignment } from "../@types/BranchAssignment";
 
 export interface ChickyOinkReportContextType {
   sales: ChickyOinkSales;
@@ -17,6 +18,8 @@ export interface ChickyOinkReportContextType {
   totalSales: number;
   totalExpenses: number;
   onDuty: string;
+  selectedBranch: IBranchAssignment | undefined;
+  setSelectedBranch: (val: IBranchAssignment | undefined) => void;
   setSales: (val: ChickyOinkSales) => void;
   setInventory: (val: IChickyOinkReportInventory) => void;
   setExpenses: React.Dispatch<React.SetStateAction<IExpense[]>>;
@@ -80,6 +83,9 @@ const ChickyOinkReportContextProvider = ({
   const [cashFund, setCashFund] = useState<number>(0);
   const [preparedBy, setPreparedBy] = useState<string>("");
   const [onDuty, setOnDuty] = useState<string>("");
+  const [selectedBranch, setSelectedBranch] = useState<
+    IBranchAssignment | undefined
+  >();
 
   const totalSales =
     sales.regular_chicken * CHICKY_OINK_INVENTORY.REGULAR_CHICKEN.price +
@@ -109,6 +115,7 @@ const ChickyOinkReportContextProvider = ({
         totalSales,
         totalExpenses,
         onDuty,
+        selectedBranch,
         setOnDuty,
         setSales,
         setInventory,
@@ -116,6 +123,7 @@ const ChickyOinkReportContextProvider = ({
         setCash,
         setCashFund,
         setPreparedBy,
+        setSelectedBranch,
       }}
     >
       <div className="p-5">{children}</div>

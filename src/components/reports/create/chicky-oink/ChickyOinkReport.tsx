@@ -5,10 +5,12 @@ import ChickyOinkReportContextProvider from "../../../../context/chickyReportCon
 import ChickyOinkInventoryTable from "./ChickyOinkInventoryTable";
 import ChickyOinkSubmitReportBtn from "./ChickyOinkSubmitReportBtn";
 import Divider from "../../../UI/Divider";
+import ChickyOinkSelectBranch from "./ChickyOinkSelectBranch";
 
 export default function ChickyOinkReport() {
   return (
     <ChickyOinkReportContextProvider>
+      <ChickyOinkSelectBranch />
       <ChickyOinkSalesReport />
       <Divider />
       <ChickyOinkExpenses />
