@@ -31,7 +31,7 @@ export default function ChickyOinkSelectBranch() {
 
   return (
     <>
-      <div>Select a branch</div>
+      <p className="text-lg font-bold">Select a branch</p>
       <select
         value={selectedBranch?.branch_id || ""}
         onChange={(e) => {

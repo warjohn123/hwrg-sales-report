@@ -174,7 +174,7 @@ const ChickyOinkReportContextProvider = ({
         setSelectedBranch,
       }}
     >
-      <div className="p-5">{children}</div>
+      {children}
     </ChickyOinkReportContext.Provider>
   );
 };

@@ -7,11 +7,13 @@ export default function ReportCreatePage() {
   return (
     <div className="p-5">
       <Button
-        text="Back"
+        text="Back to Reports Page"
         onClick={() => navigate("/reports")}
         buttonType="primary"
       />
-      <ChickyOinkReport />
+      <div className="mt-10">
+        <ChickyOinkReport />
+      </div>
     </div>
   );
 }
