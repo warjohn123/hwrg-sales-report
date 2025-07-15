@@ -17,6 +17,23 @@ export async function createSalesReport(report: IChickyOinkReport) {
   }
 }
 
+export async function getLastReportByBranchId(branch_id: number) {
+  try {
+    const res = await fetch(
+      `${
+        import.meta.env.VITE_API_URL
+      }/api/sales-reports/${branch_id}/get-last-report`
+    );
+
+    console.log("res", res);
+
+    return res.json();
+  } catch (e) {
+    console.log("e", e);
+    console.error(e);
+  }
+}
+
 export async function getReportsByUserId(
   user_id: string,
   pageNumber: number,

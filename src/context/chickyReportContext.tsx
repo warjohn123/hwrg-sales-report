@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import type {
   ChickyOinkSales,
   IChickyOinkReport,
@@ -7,6 +7,7 @@ import type {
 import type { IExpense } from "../@types/SalesReport";
 import { CHICKY_OINK_INVENTORY } from "../constants/ChickyOinkInventory";
 import type { IBranchAssignment } from "../@types/BranchAssignment";
+import { DISPLAY_ORDER } from "../components/reports/create/chicky-oink/displayOrder";
 
 export interface ChickyOinkReportContextType {
   sales: ChickyOinkSales;
@@ -34,6 +35,8 @@ export const ChickyOinkReportContext =
 
 interface ReportContextProviderProps {
   children: React.ReactNode;
+  selectedBranch: IBranchAssignment | undefined;
+  setSelectedBranch: (val: IBranchAssignment | undefined) => void;
   report?: IChickyOinkReport;
 }
 
@@ -59,10 +62,45 @@ const defaultInventoryItem = {
   notes: "",
 };
 
+function assignNewInventoryItems(inventory: IChickyOinkReportInventory) {
+  // console.log("inventory", inventory);
+  const newInventory: {
+    [key: string]: {
+      initial_stocks: number;
+      delivered: number;
+      pull_out: number;
+      sales: number;
+      remaining_stocks: number;
+      notes: string;
+    };
+  } = {};
+
+  for (let item in inventory) {
+    // console.log("inventory[item]", inventory[item]);
+
+    newInventory[item] = {
+      initial_stocks: inventory[item].remaining_stocks,
+      delivered: 0,
+      pull_out: 0,
+      sales: 0,
+      remaining_stocks: 0,
+      notes: "",
+    };
+  }
+
+  const sortedInventory = Object.fromEntries(
+    DISPLAY_ORDER.map((key) => [key, newInventory[key]]).filter(
+      ([_, val]) => val
+    )
+  );
+
+  return sortedInventory;
+}
+
 const initialInventory: IChickyOinkReportInventory = {
   regular_chicken: defaultInventoryItem,
-  regular_liempo: defaultInventoryItem,
   spicy_chicken: defaultInventoryItem,
+  regular_liempo: defaultInventoryItem,
   spicy_liempo: defaultInventoryItem,
   liog: defaultInventoryItem,
   spicy_liog: defaultInventoryItem,
@@ -74,6 +112,9 @@ const initialInventory: IChickyOinkReportInventory = {
 
 const ChickyOinkReportContextProvider = ({
   children,
+  report,
+  selectedBranch,
+  setSelectedBranch,
 }: ReportContextProviderProps) => {
   const [sales, setSales] = useState<ChickyOinkSales>(initialSales);
   const [inventory, setInventory] =
@@ -83,9 +124,16 @@ const ChickyOinkReportContextProvider = ({
   const [cashFund, setCashFund] = useState<number>(0);
   const [preparedBy, setPreparedBy] = useState<string>("");
   const [onDuty, setOnDuty] = useState<string>("");
-  const [selectedBranch, setSelectedBranch] = useState<
-    IBranchAssignment | undefined
-  >();
+
+  useEffect(() => {
+    if (report?.inventory) {
+      setInventory(assignNewInventoryItems(report?.inventory));
+    } else {
+      setInventory(initialInventory);
+    }
+  }, [report]);
+
+  console.log("test inventory", inventory);
 
   const totalSales =
     sales.regular_chicken * CHICKY_OINK_INVENTORY.REGULAR_CHICKEN.price +
