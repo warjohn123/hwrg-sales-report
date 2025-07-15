@@ -104,17 +104,6 @@ export default function ChickyOinkInventoryTable() {
                 </td>
               </tr>
             ))}
-            {/* <tr>
-              <td className="sticky left-0 bg-white z-10 border px-4 py-2">
-                Chocolate
-              </td>
-              <td className="border px-4 py-2">8</td>
-              <td className="border px-4 py-2"></td>
-              <td className="border px-4 py-2"></td>
-              <td className="border px-4 py-2"></td>
-              <td className="border px-4 py-2"></td>
-              <td className="border px-4 py-2"></td>
-            </tr> */}
           </tbody>
         </table>
       </div>

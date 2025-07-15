@@ -33,7 +33,7 @@ export const CHICKY_OINK_INVENTORY: { [key: string]: IInventoryItem } = {
     attribute: "spicy_liog",
     price: 12,
   },
-  POSO: { name: "poso", attribute: "poso", price: 8 },
+  POSO: { name: "Poso", attribute: "poso", price: 8 },
   ATCHARA_SMALL: {
     name: "Atchara Small",
     attribute: "atchara_small",

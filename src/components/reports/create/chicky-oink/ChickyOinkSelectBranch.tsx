@@ -6,21 +6,29 @@ import {
   ChickyOinkReportContext,
   type ChickyOinkReportContextType,
 } from "../../../../context/chickyReportContext";
+import { toast } from "react-toastify";
 
 export default function ChickyOinkSelectBranch() {
   const user = useCurrentUser();
   const [branchAssignments, setBranchAssignments] = useState<
     IBranchAssignment[]
   >([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { selectedBranch, setSelectedBranch } = useContext(
     ChickyOinkReportContext
   ) as ChickyOinkReportContextType;
 
   const fetchBranches = async () => {
-    const res = await getBranchAssignmentsByUserId(user!.id);
+    try {
+      const res = await getBranchAssignmentsByUserId(user!.id);
 
-    setBranchAssignments(res);
-    setSelectedBranch(res[0]);
+      setBranchAssignments(res);
+      setSelectedBranch(res[0]);
+      setIsLoading(false);
+    } catch (e) {
+      toast.error("Something went wrong. Please contact Warren.");
+      console.error(e);
+    }
   };
 
   useEffect(() => {
@@ -28,6 +36,8 @@ export default function ChickyOinkSelectBranch() {
       fetchBranches();
     }
   }, [user]);
+
+  if (isLoading) return <>Loading...</>;
 
   return (
     <>

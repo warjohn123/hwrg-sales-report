@@ -43,7 +43,20 @@ export async function getReportsByUserId(
     const res = await fetch(
       `${
         import.meta.env.VITE_API_URL
-      }/api/sales-reports/${user_id}?page=${pageNumber}&limit=${pageSize}`
+      }/api/sales-reports/get-reports-by-user/${user_id}?page=${pageNumber}&limit=${pageSize}`
+    );
+
+    return res.json();
+  } catch (e) {
+    console.log("e", e);
+    console.error(e);
+  }
+}
+
+export async function fetchReportDetails(report_id: string) {
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/sales-reports/${report_id}`
     );
 
     return res.json();
