@@ -8,6 +8,7 @@ import { createSalesReport } from "../../../../services/reports.service";
 import Button from "../../../UI/Button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { formatDate } from "../../../../lib/formatDate";
 
 export default function ChickyOinkSubmitReportBtn() {
   const {
@@ -29,7 +30,7 @@ export default function ChickyOinkSubmitReportBtn() {
       await createSalesReport({
         title: `Sales Report ${
           selectedBranch?.branches?.branch_name
-        } ${new Date().toISOString()}`,
+        } ${formatDate(new Date().toISOString())}`,
         report_date: new Date().toISOString(),
         type: EMPLOYEE_ASSIGNMENT.CHICKY_OINK,
         branch_id: selectedBranch?.branch_id ?? 0,

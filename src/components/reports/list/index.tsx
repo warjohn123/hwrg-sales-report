@@ -20,7 +20,6 @@ export default function ChickyOinkReportsList() {
         pageNumber,
         pageSize
       );
-      console.log("res", res);
       setTotal(res.total);
       setReports(res.sales_reports);
     } catch (e) {
