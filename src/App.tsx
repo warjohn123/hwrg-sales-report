@@ -5,13 +5,24 @@ import ReportCreatePage from "./pages/report-create";
 import ReportDetailPage from "./pages/report-detail";
 import ReportsPage from "./pages/reports";
 import { ToastContainer } from "react-toastify";
+import { useEffect } from "react";
 
 function App() {
-  // Check auth on load (could be from localStorage or Supabase)
-  // useEffect(() => {
-  //   const user = localStorage.getItem("user"); // Or fetch from auth
-  //   setIsLoggedIn(!!user);
-  // }, []);
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (
+        document.activeElement instanceof HTMLInputElement &&
+        document.activeElement.type === "number" &&
+        e.target === document.activeElement
+      ) {
+        document.activeElement.blur();
+      }
+    };
+    document.addEventListener("wheel", handleWheel, { passive: false });
+    return () => {
+      document.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
 
   return (
     <Router>

@@ -1,6 +1,8 @@
 import type { IAssignment } from "./User";
 
 export interface IExpense {
+  id?: number;
+  sales_report_id?: number;
   name: string;
   value: number;
 }
@@ -20,10 +22,6 @@ export interface SalesReport {
   report_date: string;
   cash: number;
   cash_fund: number;
-  // total_remit: number;
-  // total_sales: number;
-  // short: number;
-  // over: number;
   on_duty: string;
   prepared_by: string;
   type: IAssignment;

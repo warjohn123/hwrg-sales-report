@@ -29,6 +29,7 @@ function getTotalSales(sales: ChickyOinkSales) {
 
 export default function ChickyOinkReportDetails({ report }: Props) {
   const navigate = useNavigate();
+
   const totalExpenses = report.expenses.reduce(
     (partialSum, a) => partialSum + (a.value || 0),
     0
