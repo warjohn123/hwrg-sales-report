@@ -119,7 +119,11 @@ const ChickyOinkReportContextProvider = ({
   const [sales, setSales] = useState<ChickyOinkSales>(initialSales);
   const [inventory, setInventory] =
     useState<IChickyOinkReportInventory>(initialInventory);
-  const [expenses, setExpenses] = useState<IExpense[]>([]);
+  const [expenses, setExpenses] = useState<IExpense[]>([
+    { name: "Grab", value: 0 },
+    { name: "FoodPanda", value: 0 },
+    { name: "GCash", value: 0 },
+  ]);
   const [cash, setCash] = useState<number>(0);
   const [cashFund, setCashFund] = useState<number>(0);
   const [preparedBy, setPreparedBy] = useState<string>("");

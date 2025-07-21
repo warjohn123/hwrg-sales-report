@@ -9,8 +9,10 @@ interface Props {
   index: number;
 }
 
+const disabledExpenses = ["Grab", "FoodPanda", "GCash", "Commission Fee"];
+
 export default function ExpenseRow({ index }: Props) {
-  const { setExpenses } = useContext(
+  const { setExpenses, expenses } = useContext(
     ChickyOinkReportContext
   ) as ChickyOinkReportContextType;
 
@@ -21,6 +23,8 @@ export default function ExpenseRow({ index }: Props) {
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Name"
           type="string"
+          value={expenses[index].name}
+          disabled={disabledExpenses.includes(expenses[index].name)}
           onChange={(e) =>
             setExpenses((prev: IExpense[]) => {
               const result = [...prev];
@@ -35,6 +39,7 @@ export default function ExpenseRow({ index }: Props) {
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Amount"
           type="number"
+          value={expenses[index].value}
           onChange={(e) =>
             setExpenses((prev: IExpense[]) => {
               const result = [...prev];
