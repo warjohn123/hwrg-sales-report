@@ -17,6 +17,7 @@ export default function ChickyOinkReport() {
     IBranchAssignment | undefined
   >();
   const [report, setReport] = useState<IChickyOinkReport>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchLastReport = async () => {
     if (!selectedBranch) return;
@@ -27,6 +28,8 @@ export default function ChickyOinkReport() {
     } catch (e) {
       console.error(e);
       toast.error("Something went wrong fetching last report");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,14 +44,20 @@ export default function ChickyOinkReport() {
       setSelectedBranch={setSelectedBranch}
     >
       <ChickyOinkSelectBranch />
-      <ChickyOinkSalesReport />
-      <Divider />
-      <ChickyOinkExpenses />
-      <Divider />
-      <ChickyOinkSummary />
-      <Divider />
-      <ChickyOinkInventoryTable />
-      <ChickyOinkSubmitReportBtn />
+      {loading ? (
+        <div>Loading last report...</div>
+      ) : (
+        <>
+          <ChickyOinkSalesReport />
+          <Divider />
+          <ChickyOinkExpenses />
+          <Divider />
+          <ChickyOinkSummary />
+          <Divider />
+          <ChickyOinkInventoryTable />
+          <ChickyOinkSubmitReportBtn />
+        </>
+      )}
     </ChickyOinkReportContextProvider>
   );
 }

@@ -42,7 +42,7 @@ export default function ChickyOinkSelectBranch() {
     }
   }, [user]);
 
-  if (isLoading) return <>Loading...</>;
+  if (isLoading) return <>Loading branches...</>;
   if (!hasAssignments) return <>No assigned branch. Ask Warren for help.</>;
 
   return (

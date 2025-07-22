@@ -76,16 +76,18 @@ function assignNewInventoryItems(inventory: IChickyOinkReportInventory) {
   } = {};
 
   for (let item in inventory) {
-    // console.log("inventory[item]", inventory[item]);
-
-    newInventory[item] = {
-      initial_stocks: inventory[item].remaining_stocks,
-      delivered: 0,
-      pull_out: 0,
-      sales: 0,
-      remaining_stocks: 0,
-      notes: "",
-    };
+    if (item === "poso") {
+      newInventory[item] = defaultInventoryItem;
+    } else {
+      newInventory[item] = {
+        initial_stocks: inventory[item].remaining_stocks,
+        delivered: 0,
+        pull_out: 0,
+        sales: 0,
+        remaining_stocks: 0,
+        notes: "",
+      };
+    }
   }
 
   const sortedInventory = Object.fromEntries(
