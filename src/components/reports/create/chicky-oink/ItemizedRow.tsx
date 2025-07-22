@@ -40,7 +40,8 @@ export default function ItemizedRow({ inventoryItem }: Props) {
         />
       </span>
       <span className=""> X </span>
-      <span className="w-10">{inventoryItem.price}</span>
+      <span className="w-7">{inventoryItem.price}</span>
+      <span className=""> = </span>
       <span className="font-bold">
         ₱{(sales[inventoryItem.attribute] ?? 0) * inventoryItem.price!}
       </span>
