@@ -2,13 +2,14 @@ import { useNavigate } from "react-router-dom";
 import LoginForm from "../../components/auth/LoginForm";
 import { supabase } from "../../lib/supabase";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
   const handleLogin = async (email: string, password: string) => {
     if (!email || !password) {
-      alert("Please enter email and password");
+      toast.warning("Please enter email and password");
       return;
     }
 
@@ -19,7 +20,7 @@ export default function LoginPage() {
     });
 
     if (error) {
-      alert("Invalid access");
+      toast.error("Invalid access");
       setIsLoggingIn(false);
       return;
     }

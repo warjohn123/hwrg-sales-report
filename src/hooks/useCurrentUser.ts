@@ -7,7 +7,6 @@ export function useCurrentUser() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user }, error }) => {
-      console.log("user test", user);
       if (user) setUser(user as any);
       else console.log("No user or error:", error);
     });

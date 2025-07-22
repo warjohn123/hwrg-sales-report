@@ -139,8 +139,6 @@ const ChickyOinkReportContextProvider = ({
     }
   }, [report]);
 
-  console.log("test inventory", inventory);
-
   const totalSales =
     sales.regular_chicken * CHICKY_OINK_INVENTORY.REGULAR_CHICKEN.price +
     sales.spicy_chicken * CHICKY_OINK_INVENTORY.SPICY_CHICKEN.price +
