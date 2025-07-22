@@ -38,7 +38,9 @@ export default function ChickyOinkExpenses() {
       </div>
 
       <div className="mt-5">
-        <h4 className="font-bold text-lg">TOTAL EXPENSES: {totalExpenses}</h4>
+        <h4 className="font-bold text-lg">
+          TOTAL EXPENSES: {totalExpenses.toLocaleString()}
+        </h4>
       </div>
     </div>
   );

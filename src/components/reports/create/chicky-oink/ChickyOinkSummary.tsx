@@ -63,10 +63,14 @@ export default function ChickyOinkSummary() {
       </div>
       <div className="mt-5">
         {totalRemit - cash > 0 && (
-          <h1 className="text-red-500">SHORT: Php {totalRemit - cash}</h1>
+          <h1 className="text-red-500">
+            SHORT: Php {(totalRemit - cash).toLocaleString()}
+          </h1>
         )}
         {cash - totalRemit > 0 && (
-          <h1 className="text-green-500">OVER: Php {cash - totalRemit}</h1>
+          <h1 className="text-green-500">
+            OVER: Php {(cash - totalRemit).toLocaleString()}
+          </h1>
         )}
       </div>
     </div>

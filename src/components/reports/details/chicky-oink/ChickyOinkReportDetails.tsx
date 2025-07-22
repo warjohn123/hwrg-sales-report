@@ -61,8 +61,10 @@ export default function ChickyOinkReportDetails({ report }: Props) {
               <div>=</div>
               <span className="font-bold">
                 ₱
-                {(report.sales[CHICKY_OINK_INVENTORY[key].attribute] ?? 0) *
-                  CHICKY_OINK_INVENTORY[key].price!}
+                {(
+                  (report.sales[CHICKY_OINK_INVENTORY[key].attribute] ?? 0) *
+                  CHICKY_OINK_INVENTORY[key].price!
+                ).toLocaleString()}
               </span>
             </div>
           ))}
@@ -70,7 +72,7 @@ export default function ChickyOinkReportDetails({ report }: Props) {
 
         <div className="mt-5">
           <h5 className="font-bold text-3xl">
-            Total Sales: {getTotalSales(report.sales)}
+            Total Sales: {getTotalSales(report.sales).toLocaleString()}
           </h5>
         </div>
       </div>
@@ -85,12 +87,14 @@ export default function ChickyOinkReportDetails({ report }: Props) {
             <div className="flex flex-row gap-3">
               <div>{expense.name}</div>
               <div>=</div>
-              <div className="font-bold">{expense.value}</div>
+              <div className="font-bold">{expense.value.toLocaleString()}</div>
             </div>
           ))}
         </div>
         <div className="mt-5">
-          <h4 className="font-bold text-lg">TOTAL EXPENSES: {totalExpenses}</h4>
+          <h4 className="font-bold text-lg">
+            TOTAL EXPENSES: {totalExpenses.toLocaleString()}
+          </h4>
         </div>
       </div>
 
@@ -101,11 +105,11 @@ export default function ChickyOinkReportDetails({ report }: Props) {
         <div className="flex flex-col gap-3 mt-5">
           <div className="flex gap-3">
             <div>Cash</div>
-            <div className="font-bold">{report.cash}</div>
+            <div className="font-bold">{report.cash.toLocaleString()}</div>
           </div>
           <div className="flex gap-3">
             <div>Cash Fund</div>
-            <div className="font-bold">{report.cash_fund}</div>
+            <div className="font-bold">{report.cash_fund.toLocaleString()}</div>
           </div>
           <div className="flex gap-3">
             <div>On Duty</div>
@@ -118,10 +122,14 @@ export default function ChickyOinkReportDetails({ report }: Props) {
         </div>
         <div className="mt-5">
           {totalRemit - cash > 0 && (
-            <h1 className="text-red-500">SHORT: Php {totalRemit - cash}</h1>
+            <h1 className="text-red-500">
+              SHORT: Php {(totalRemit - cash).toLocaleString()}
+            </h1>
           )}
           {cash - totalRemit > 0 && (
-            <h1 className="text-green-500">OVER: Php {cash - totalRemit}</h1>
+            <h1 className="text-green-500">
+              OVER: Php {(cash - totalRemit).toLocaleString()}
+            </h1>
           )}
         </div>
       </div>

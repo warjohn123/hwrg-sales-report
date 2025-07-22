@@ -24,7 +24,9 @@ export default function ChickyOinkSalesReport() {
       </div>
 
       <div className="mt-5">
-        <h5 className="font-bold text-3xl">Total Sales: {totalSales}</h5>
+        <h5 className="font-bold text-3xl">
+          Total Sales: {totalSales.toLocaleString()}
+        </h5>
       </div>
     </div>
   );

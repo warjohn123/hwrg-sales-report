@@ -43,7 +43,10 @@ export default function ItemizedRow({ inventoryItem }: Props) {
       <span className="w-7">{inventoryItem.price}</span>
       <span className=""> = </span>
       <span className="font-bold">
-        ₱{(sales[inventoryItem.attribute] ?? 0) * inventoryItem.price!}
+        ₱
+        {(
+          (sales[inventoryItem.attribute] ?? 0) * inventoryItem.price!
+        ).toLocaleString()}
       </span>
     </div>
   );
