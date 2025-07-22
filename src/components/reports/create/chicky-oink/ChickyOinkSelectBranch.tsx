@@ -17,10 +17,15 @@ export default function ChickyOinkSelectBranch() {
   const { selectedBranch, setSelectedBranch } = useContext(
     ChickyOinkReportContext
   ) as ChickyOinkReportContextType;
+  const [hasAssignments, setHasAssignments] = useState<boolean>(true);
 
   const fetchBranches = async () => {
     try {
       const res = await getBranchAssignmentsByUserId(user!.id);
+
+      if (!res.length) {
+        setHasAssignments(false);
+      }
 
       setBranchAssignments(res);
       setSelectedBranch(res[0]);
@@ -38,6 +43,7 @@ export default function ChickyOinkSelectBranch() {
   }, [user]);
 
   if (isLoading) return <>Loading...</>;
+  if (!hasAssignments) return <>No assigned branch. Ask Warren for help.</>;
 
   return (
     <>
