@@ -23,17 +23,17 @@ export default function ItemizedRow({ inventoryItem }: Props) {
           placeholder="Quantity"
           type="number"
           onChange={(e) => {
-            setSales({ ...sales, [inventoryItem.attribute]: e.target.value });
+            const inputValue = e.target.value ? parseFloat(e.target.value) : 0;
+            setSales({ ...sales, [inventoryItem.attribute]: inputValue });
             setInventory({
               ...inventory,
               [inventoryItem.attribute]: {
                 ...inventory[inventoryItem.attribute],
-                sales: parseFloat(e.target.value),
+                sales: inputValue,
                 remaining_stocks:
                   inventory[inventoryItem.attribute].delivered +
                   inventory[inventoryItem.attribute].initial_stocks -
-                  (parseFloat(e.target.value) +
-                    inventory[inventoryItem.attribute].pull_out),
+                  (inputValue + inventory[inventoryItem.attribute].pull_out),
               },
             });
           }}
