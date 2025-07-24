@@ -43,15 +43,17 @@ export default function ChickyOinkInventoryTable() {
                     className="w-25 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={inventory[key].delivered}
                     onChange={(e) => {
-                      console.log("number", e.target.value);
+                      const inputValue = e.target.value
+                        ? parseFloat(e.target.value)
+                        : 0;
                       setInventory({
                         ...inventory,
                         [key]: {
                           ...inventory[key],
-                          delivered: parseFloat(e.target.value),
+                          delivered: inputValue,
                           remaining_stocks:
                             inventory[key].initial_stocks +
-                            parseFloat(e.target.value) -
+                            inputValue -
                             (inventory[key].sales + inventory[key].pull_out),
                         },
                       });
@@ -65,15 +67,18 @@ export default function ChickyOinkInventoryTable() {
                     className="w-25 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     value={inventory[key].pull_out}
                     onChange={(e) => {
+                      const inputValue = e.target.value
+                        ? parseFloat(e.target.value)
+                        : 0;
                       setInventory({
                         ...inventory,
                         [key]: {
                           ...inventory[key],
-                          pull_out: parseFloat(e.target.value),
+                          pull_out: inputValue,
                           remaining_stocks:
                             inventory[key].initial_stocks +
                             inventory[key].delivered -
-                            (inventory[key].sales + parseFloat(e.target.value)),
+                            (inventory[key].sales + inputValue),
                         },
                       });
                     }}
