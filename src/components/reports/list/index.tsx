@@ -2,24 +2,39 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { SalesReport } from "../../../@types/SalesReport";
 import { toast } from "react-toastify";
-import { getReportsByUserId } from "../../../services/reports.service";
+import {
+  fetchSalesReports,
+  getReportsByUserId,
+} from "../../../services/reports.service";
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import Pagination from "../../Pagination";
 import { usePagination } from "../../../hooks/usePagination";
+import { fetchUserDetails } from "../../../services/user.service";
+import { USER_TYPE, type IUser } from "../../../@types/User";
 
 export default function ChickyOinkReportsList() {
   const [reports, setReports] = useState<SalesReport[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { page, setPage, totalPages, setTotal, pageSize } = usePagination();
+  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const user = useCurrentUser();
 
-  const fetchReports = async (pageNumber = 1) => {
+  const fetchUser = async () => {
+    if (!user?.id) return;
+    const userData = await fetchUserDetails(user.id);
+    setCurrentUser(userData ?? null);
+  };
+
+  const fetchEmployeeReports = async (pageNumber = 1) => {
+    if (!currentUser) return;
+
     try {
-      const res = await getReportsByUserId(
-        user?.id ?? "",
-        pageNumber,
-        pageSize
-      );
+      const isEmployee = currentUser.type === USER_TYPE.EMPLOYEE;
+
+      const res = isEmployee
+        ? await getReportsByUserId(user?.id ?? "", pageNumber, pageSize)
+        : await fetchSalesReports(pageNumber, pageSize, "", []);
+
       setTotal(res.total);
       setReports(res.sales_reports);
     } catch (e) {
@@ -27,17 +42,22 @@ export default function ChickyOinkReportsList() {
         "Something went wrong fetching reports. Please contact Warren."
       );
       console.error(e);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   useEffect(() => {
+    const fetchAllData = () => {
+      Promise.all([fetchUser(), fetchEmployeeReports()]).then(() => {
+        setIsLoading(false);
+      });
+    };
+
     if (!user?.id) return;
-    fetchReports(page);
+    fetchAllData();
   }, [page, user]);
 
   if (isLoading) return <>Loading reports...</>;
+  if (!currentUser) return <>No user found. Contact Warren to get access.</>;
 
   return (
     <div>

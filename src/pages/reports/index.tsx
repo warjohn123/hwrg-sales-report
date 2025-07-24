@@ -4,7 +4,7 @@ import { supabase } from "../../lib/supabase";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { fetchUserDetails } from "../../services/user.service";
 import { useEffect, useState } from "react";
-import type { IUser } from "../../@types/User";
+import { USER_TYPE, type IUser } from "../../@types/User";
 
 export default function ReportsPage() {
   const navigate = useNavigate();
@@ -20,7 +20,6 @@ export default function ReportsPage() {
     const fetchUser = async () => {
       if (user?.id) {
         const employee = await fetchUserDetails(user.id);
-        console.log("employee", employee);
         setEmployee(employee ?? null);
       }
     };
@@ -39,12 +38,14 @@ export default function ReportsPage() {
           >
             Logout
           </button>
-          <Link
-            to="/reports/create"
-            className="px-4 py-2 bg-blue-600 text-sm text-white rounded hover:bg-blue-700"
-          >
-            Add Report
-          </Link>
+          {employee?.type === USER_TYPE.EMPLOYEE && (
+            <Link
+              to="/reports/create"
+              className="px-4 py-2 bg-blue-600 text-sm text-white rounded hover:bg-blue-700"
+            >
+              Add Report
+            </Link>
+          )}
         </div>
       </div>
 

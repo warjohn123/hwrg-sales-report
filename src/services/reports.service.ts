@@ -65,3 +65,24 @@ export async function fetchReportDetails(report_id: string) {
     console.error(e);
   }
 }
+
+export async function fetchSalesReports(
+  page: number,
+  limit: number,
+  branchId = "",
+  dates: string[]
+) {
+  const params = new URLSearchParams();
+
+  params.set("page", page.toString());
+  params.set("limit", limit.toString());
+  if (branchId) params.set("branchId", branchId);
+  if (dates?.length === 2) {
+    params.set("dates", dates.join(","));
+  }
+
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/sales-reports?${params.toString()}`
+  );
+  return res.json();
+}
