@@ -40,13 +40,14 @@ export default function ExpenseRow({ index }: Props) {
           placeholder="Amount"
           type="number"
           value={expenses[index].value}
-          onChange={(e) =>
+          onChange={(e) => {
+            const inputValue = e.target.value ? parseFloat(e.target.value) : 0;
             setExpenses((prev: IExpense[]) => {
               const result = [...prev];
-              result[index].value = parseInt(e.target.value);
+              result[index].value = inputValue;
               return result;
-            })
-          }
+            });
+          }}
         />
       </div>
     </div>

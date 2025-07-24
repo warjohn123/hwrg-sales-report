@@ -14,6 +14,7 @@ export default function ChickyOinkSummary() {
     totalSales,
     totalExpenses,
     cash,
+    cashFund,
   } = useContext(ChickyOinkReportContext) as ChickyOinkReportContextType;
 
   const totalRemit = totalSales - totalExpenses;
@@ -30,7 +31,13 @@ export default function ChickyOinkSummary() {
             className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Cash"
             type="number"
-            onChange={(e) => setCash(parseInt(e.target.value))}
+            value={cash}
+            onChange={(e) => {
+              const inputValue = e.target.value
+                ? parseFloat(e.target.value)
+                : 0;
+              setCash(inputValue);
+            }}
           />
         </div>
         <div className="flex align-middle items-center">
@@ -39,7 +46,13 @@ export default function ChickyOinkSummary() {
             className="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Cash Fund"
             type="number"
-            onChange={(e) => setCashFund(parseInt(e.target.value))}
+            value={cashFund}
+            onChange={(e) => {
+              const inputValue = e.target.value
+                ? parseFloat(e.target.value)
+                : 0;
+              setCashFund(inputValue);
+            }}
           />
         </div>
         <div className="flex align-middle items-center">

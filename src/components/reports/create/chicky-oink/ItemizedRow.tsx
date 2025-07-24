@@ -22,6 +22,7 @@ export default function ItemizedRow({ inventoryItem }: Props) {
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Quantity"
           type="number"
+          value={sales[inventoryItem.attribute]}
           onChange={(e) => {
             const inputValue = e.target.value ? parseFloat(e.target.value) : 0;
             setSales({ ...sales, [inventoryItem.attribute]: inputValue });
