@@ -91,6 +91,7 @@ export default function ChickyOinkReportsList() {
         <thead>
           <tr className="bg-gray-100 text-left">
             <th className="px-4 py-3 border-b">Title</th>
+            <th className="px-4 py-3 border-b">Remit</th>
             <th className="px-4 py-3 border-b">Date Created</th>
           </tr>
         </thead>
@@ -100,6 +101,9 @@ export default function ChickyOinkReportsList() {
               <tr key={report.id} className="hover:bg-gray-50">
                 <td className="px-4 py-3 border-b text-blue-600 underline">
                   <Link to={`/reports/${report.id}`}>{report.title}</Link>
+                </td>
+                <td className="px-4 py-3 border-b font-bold">
+                  {report.cash.toLocaleString()}
                 </td>
                 <td className="px-4 py-3 border-b">{report.report_date}</td>
               </tr>
