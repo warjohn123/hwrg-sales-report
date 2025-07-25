@@ -28,9 +28,16 @@ export default function ChickyOinkSubmitReportBtn() {
     setIsSaving(true);
     try {
       await createSalesReport({
-        title: `Sales Report ${
+        title: `${
           selectedBranch?.branches?.branch_name
-        } ${formatDate(new Date().toISOString())}`,
+        } ${new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        })}`,
         report_date: new Date().toISOString(),
         type: EMPLOYEE_ASSIGNMENT.CHICKY_OINK,
         branch_id: selectedBranch?.branch_id ?? 0,
