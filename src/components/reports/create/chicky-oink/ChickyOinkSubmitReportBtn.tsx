@@ -8,7 +8,6 @@ import { createSalesReport } from "../../../../services/reports.service";
 import Button from "../../../UI/Button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { formatDate } from "../../../../lib/formatDate";
 
 export default function ChickyOinkSubmitReportBtn() {
   const {
