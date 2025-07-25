@@ -19,17 +19,17 @@ export default function ChickyOinkReportsList() {
   const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const user = useCurrentUser();
 
-  const fetchUser = async () => {
+  const fetchUser = async () => {};
+
+  const fetchEmployeeReports = async (pageNumber = 1) => {
     if (!user?.id) return;
     const userData = await fetchUserDetails(user.id);
     setCurrentUser(userData ?? null);
-  };
-
-  const fetchEmployeeReports = async (pageNumber = 1) => {
-    if (!currentUser) return;
 
     try {
-      const isEmployee = currentUser.type === USER_TYPE.EMPLOYEE;
+      const isEmployee = userData?.type === USER_TYPE.EMPLOYEE;
+
+      console.log("is employee", isEmployee);
 
       const res = isEmployee
         ? await getReportsByUserId(user?.id ?? "", pageNumber, pageSize)
