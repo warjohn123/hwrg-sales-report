@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import type { SalesReport } from "../../../@types/SalesReport";
 import { toast } from "react-toastify";
@@ -11,6 +11,10 @@ import Pagination from "../../Pagination";
 import { usePagination } from "../../../hooks/usePagination";
 import { fetchUserDetails } from "../../../services/user.service";
 import { USER_TYPE, type IUser } from "../../../@types/User";
+import DatePicker, {
+  DateObject,
+  type DatePickerRef,
+} from "react-multi-date-picker";
 
 export default function ChickyOinkReportsList() {
   const [reports, setReports] = useState<SalesReport[]>([]);
@@ -18,22 +22,30 @@ export default function ChickyOinkReportsList() {
   const { page, setPage, totalPages, setTotal, pageSize } = usePagination();
   const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const user = useCurrentUser();
-
-  const fetchUser = async () => {};
+  const datePickerRef = useRef<DatePickerRef>(null);
+  const [dates, setDates] = useState([
+    new DateObject().subtract(1, "day"),
+    new DateObject(),
+  ]);
 
   const fetchEmployeeReports = async (pageNumber = 1) => {
     if (!user?.id) return;
+    setIsLoading(true);
+    const formattedDates = dates.map((date) => date.format("YYYY-MM-DD"));
     const userData = await fetchUserDetails(user.id);
     setCurrentUser(userData ?? null);
 
+    const isEmployee = userData?.type === USER_TYPE.EMPLOYEE;
+
     try {
-      const isEmployee = userData?.type === USER_TYPE.EMPLOYEE;
-
-      console.log("is employee", isEmployee);
-
       const res = isEmployee
-        ? await getReportsByUserId(user?.id ?? "", pageNumber, pageSize)
-        : await fetchSalesReports(pageNumber, pageSize, "", []);
+        ? await getReportsByUserId(
+            user?.id ?? "",
+            pageNumber,
+            pageSize,
+            formattedDates
+          )
+        : await fetchSalesReports(pageNumber, pageSize, "", formattedDates);
 
       setTotal(res.total);
       setReports(res.sales_reports);
@@ -42,25 +54,39 @@ export default function ChickyOinkReportsList() {
         "Something went wrong fetching reports. Please contact Warren."
       );
       console.error(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    const fetchAllData = () => {
-      Promise.all([fetchUser(), fetchEmployeeReports()]).then(() => {
-        setIsLoading(false);
-      });
-    };
-
     if (!user?.id) return;
-    fetchAllData();
-  }, [page, user]);
+    if (dates.length === 2) fetchEmployeeReports();
+  }, [page, user, dates]);
 
   if (isLoading) return <>Loading reports...</>;
   if (!currentUser) return <>No user found. Contact Warren to get access.</>;
 
   return (
     <div>
+      <div className="mt-5 mb-5">
+        <label className="font-bold">Choose dates</label>
+        <div>
+          <DatePicker
+            style={{ zIndex: 9999, height: "38px", width: "220px" }}
+            value={dates}
+            onChange={(selectedDates) => {
+              setDates(selectedDates);
+              if (selectedDates.length === 2) {
+                datePickerRef.current?.closeCalendar();
+              }
+            }}
+            format="YYYY-MM-DD"
+            range
+            ref={datePickerRef}
+          />
+        </div>
+      </div>
       <table className="min-w-full bg-white shadow rounded-md overflow-hidden">
         <thead>
           <tr className="bg-gray-100 text-left">

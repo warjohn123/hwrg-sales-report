@@ -37,13 +37,16 @@ export async function getLastReportByBranchId(branch_id: number) {
 export async function getReportsByUserId(
   user_id: string,
   pageNumber: number,
-  pageSize: number
+  pageSize: number,
+  dates: string[]
 ) {
   try {
     const res = await fetch(
       `${
         import.meta.env.VITE_API_URL
-      }/api/sales-reports/get-reports-by-user/${user_id}?page=${pageNumber}&limit=${pageSize}`
+      }/api/sales-reports/get-reports-by-user/${user_id}?page=${pageNumber}&limit=${pageSize}&dates=${dates.join(
+        ","
+      )}`
     );
 
     return res.json();
