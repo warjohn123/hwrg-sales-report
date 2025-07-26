@@ -1,22 +1,22 @@
 import { useContext, useEffect, useState } from "react";
-import { type IBranchAssignment } from "../../../../@types/BranchAssignment";
-import { useCurrentUser } from "../../../../hooks/useCurrentUser";
-import { getBranchAssignmentsByUserId } from "../../../../services/branch-assignment.service";
+import { type IBranchAssignment } from "../../../@types/BranchAssignment";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import { getBranchAssignmentsByUserId } from "../../../services/branch-assignment.service";
 import {
-  ChickyOinkReportContext,
-  type ChickyOinkReportContextType,
-} from "../../../../context/chickyReportContext";
+  SalesReportContext,
+  type SalesReportContextType,
+} from "../../../context/salesReportContext";
 import { toast } from "react-toastify";
 
-export default function ChickyOinkSelectBranch() {
+export default function SelectBranch() {
   const user = useCurrentUser();
   const [branchAssignments, setBranchAssignments] = useState<
     IBranchAssignment[]
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { selectedBranch, setSelectedBranch } = useContext(
-    ChickyOinkReportContext
-  ) as ChickyOinkReportContextType;
+    SalesReportContext
+  ) as SalesReportContextType;
   const [hasAssignments, setHasAssignments] = useState<boolean>(true);
 
   const fetchBranches = async () => {

@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import {
-  ChickyOinkReportContext,
-  type ChickyOinkReportContextType,
-} from "../../../../context/chickyReportContext";
+  SalesReportContext,
+  type SalesReportContextType,
+} from "../../../context/salesReportContext";
 
-export default function ChickyOinkSummary() {
+export default function Summary() {
   const {
     setCash,
     setCashFund,
@@ -15,7 +15,7 @@ export default function ChickyOinkSummary() {
     totalExpenses,
     cash,
     cashFund,
-  } = useContext(ChickyOinkReportContext) as ChickyOinkReportContextType;
+  } = useContext(SalesReportContext) as SalesReportContextType;
 
   const totalRemit = totalSales - totalExpenses;
 

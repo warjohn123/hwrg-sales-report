@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import {
-  ChickyOinkReportContext,
-  type ChickyOinkReportContextType,
-} from "../../../../context/chickyReportContext";
+  SalesReportContext,
+  type SalesReportContextType,
+} from "../../../context/salesReportContext";
 
-export default function ChickyOinkInventoryTable() {
+export default function InventoryTable() {
   const { inventory, selectedBranch, setInventory } = useContext(
-    ChickyOinkReportContext
-  ) as ChickyOinkReportContextType;
+    SalesReportContext
+  ) as SalesReportContextType;
 
   if (!!!selectedBranch) return <></>;
 

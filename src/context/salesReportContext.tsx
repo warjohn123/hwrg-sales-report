@@ -2,16 +2,25 @@ import { createContext, useEffect, useState } from "react";
 import type {
   ChickyOinkSales,
   IChickyOinkReport,
-  IChickyOinkReportInventory,
 } from "../@types/ChickyOinkReport";
-import type { IExpense } from "../@types/SalesReport";
-import { CHICKY_OINK_INVENTORY } from "../constants/ChickyOinkInventory";
+import type { IExpense, IInventoryFormat } from "../@types/SalesReport";
+import { CHICKY_OINK_PRODUCTS } from "../constants/ChickyOinkInventory";
 import type { IBranchAssignment } from "../@types/BranchAssignment";
-import { DISPLAY_ORDER } from "../components/reports/create/chicky-oink/displayOrder";
+import {
+  CHICKY_OINK_DISPLAY_ORDER,
+  IMAGAWAYAKI_DISPLAY_ORDER,
+} from "../constants/DisplayOrder";
+import type { ImagawayakiSales } from "../@types/ImagawayakiReport";
+import {
+  CHICKY_OINK_INITIAL_SALES,
+  IMAGAWAYAKI_INITIAL_SALES,
+} from "../constants/InitialSales";
+import { IMAGAWAYAKI_PRODUCTS } from "../constants/ImagawayakiInventory";
+import { EMPLOYEE_ASSIGNMENT, type IAssignment } from "../@types/User";
 
-export interface ChickyOinkReportContextType {
-  sales: ChickyOinkSales;
-  inventory: IChickyOinkReportInventory;
+export interface SalesReportContextType {
+  sales: ChickyOinkSales | ImagawayakiSales;
+  inventory: { [key: string]: IInventoryFormat };
   expenses: IExpense[];
   cash: number;
   cashFund: number;
@@ -21,8 +30,8 @@ export interface ChickyOinkReportContextType {
   onDuty: string;
   selectedBranch: IBranchAssignment | undefined;
   setSelectedBranch: (val: IBranchAssignment | undefined) => void;
-  setSales: (val: ChickyOinkSales) => void;
-  setInventory: (val: IChickyOinkReportInventory) => void;
+  setSales: (val: ChickyOinkSales | ImagawayakiSales) => void;
+  setInventory: (val: { [key: string]: IInventoryFormat }) => void;
   setExpenses: React.Dispatch<React.SetStateAction<IExpense[]>>;
   setCash: (val: number) => void;
   setCashFund: (val: number) => void;
@@ -30,8 +39,9 @@ export interface ChickyOinkReportContextType {
   setOnDuty: (val: string) => void;
 }
 
-export const ChickyOinkReportContext =
-  createContext<ChickyOinkReportContextType | null>(null);
+export const SalesReportContext = createContext<SalesReportContextType | null>(
+  null
+);
 
 interface ReportContextProviderProps {
   children: React.ReactNode;
@@ -39,19 +49,6 @@ interface ReportContextProviderProps {
   setSelectedBranch: (val: IBranchAssignment | undefined) => void;
   report?: IChickyOinkReport;
 }
-
-const initialSales: ChickyOinkSales = {
-  spicy_chicken: 0,
-  regular_chicken: 0,
-  regular_liempo: 0,
-  spicy_liempo: 0,
-  uling: 0,
-  atchara_big: 0,
-  poso: 0,
-  atchara_small: 0,
-  liog: 0,
-  spicy_liog: 0,
-};
 
 const defaultInventoryItem = {
   initial_stocks: 0,
@@ -62,8 +59,17 @@ const defaultInventoryItem = {
   notes: "",
 };
 
-function assignNewInventoryItems(inventory: IChickyOinkReportInventory) {
-  // console.log("inventory", inventory);
+function assignNewInventoryItems(
+  inventory: {
+    [key: string]: IInventoryFormat;
+  },
+  reportType: IAssignment
+) {
+  const displayOrder =
+    reportType === "chicky_oink"
+      ? CHICKY_OINK_DISPLAY_ORDER
+      : IMAGAWAYAKI_DISPLAY_ORDER;
+
   const newInventory: {
     [key: string]: {
       initial_stocks: number;
@@ -91,15 +97,15 @@ function assignNewInventoryItems(inventory: IChickyOinkReportInventory) {
   }
 
   const sortedInventory = Object.fromEntries(
-    DISPLAY_ORDER.map((key) => [key, newInventory[key]]).filter(
-      ([_, val]) => val
-    )
+    displayOrder
+      .map((key) => [key, newInventory[key]])
+      .filter(([_, val]) => val)
   );
 
   return sortedInventory;
 }
 
-const initialInventory: IChickyOinkReportInventory = {
+const initialInventory: { [key: string]: IInventoryFormat } = {
   regular_chicken: defaultInventoryItem,
   spicy_chicken: defaultInventoryItem,
   regular_liempo: defaultInventoryItem,
@@ -112,15 +118,20 @@ const initialInventory: IChickyOinkReportInventory = {
   uling: defaultInventoryItem,
 };
 
-const ChickyOinkReportContextProvider = ({
+const SalesReportContextProvider = ({
   children,
   report,
   selectedBranch,
   setSelectedBranch,
 }: ReportContextProviderProps) => {
-  const [sales, setSales] = useState<ChickyOinkSales>(initialSales);
-  const [inventory, setInventory] =
-    useState<IChickyOinkReportInventory>(initialInventory);
+  const [sales, setSales] = useState<ChickyOinkSales | ImagawayakiSales>(
+    selectedBranch?.branches?.assignment === EMPLOYEE_ASSIGNMENT.CHICKY_OINK
+      ? CHICKY_OINK_INITIAL_SALES
+      : IMAGAWAYAKI_INITIAL_SALES
+  );
+  const [inventory, setInventory] = useState<{
+    [key: string]: IInventoryFormat;
+  }>(initialInventory);
   const [expenses, setExpenses] = useState<IExpense[]>([
     { name: "Grab", value: 0 },
     { name: "FoodPanda", value: 0 },
@@ -132,23 +143,33 @@ const ChickyOinkReportContextProvider = ({
   const [onDuty, setOnDuty] = useState<string>("");
 
   useEffect(() => {
-    if (report?.inventory) {
-      setInventory(assignNewInventoryItems(report?.inventory));
+    if (report?.inventory && selectedBranch?.branches?.assignment) {
+      setInventory(
+        assignNewInventoryItems(
+          report?.inventory,
+          selectedBranch?.branches?.assignment as IAssignment
+        )
+      );
     } else {
       setInventory(initialInventory);
     }
   }, [report]);
 
   const totalSales =
-    sales.regular_chicken * CHICKY_OINK_INVENTORY.REGULAR_CHICKEN.price +
-    sales.spicy_chicken * CHICKY_OINK_INVENTORY.SPICY_CHICKEN.price +
-    sales.regular_liempo * CHICKY_OINK_INVENTORY.REGULAR_LIEMPO.price +
-    sales.spicy_liempo * CHICKY_OINK_INVENTORY.SPICY_LIEMPO.price +
-    sales.liog * CHICKY_OINK_INVENTORY.LIOG.price +
-    sales.spicy_liog * CHICKY_OINK_INVENTORY.SPICY_LIOG.price +
-    sales.poso * CHICKY_OINK_INVENTORY.POSO.price +
-    sales.atchara_small * CHICKY_OINK_INVENTORY.ATCHARA_SMALL.price +
-    sales.atchara_big * CHICKY_OINK_INVENTORY.ATCHARA_BIG.price;
+    selectedBranch?.branches?.assignment === EMPLOYEE_ASSIGNMENT.CHICKY_OINK
+      ? Object.entries(CHICKY_OINK_PRODUCTS).reduce((total, [key, item]) => {
+          return total + (sales[key as keyof typeof sales] ?? 0) * item.price;
+        }, 0)
+      : Object.entries(IMAGAWAYAKI_PRODUCTS).reduce((total, [key, item]) => {
+          return (
+            total +
+            (sales[key.toLowerCase() as keyof typeof sales] ?? 0) * item.price
+          );
+        }, 0);
+
+  console.log("total sales", totalSales);
+
+  console.log("selectedBranch?.branches?.assignment", selectedBranch?.branches);
 
   const totalExpenses = expenses.reduce(
     (partialSum, expense) => partialSum + (expense.value || 0),
@@ -156,7 +177,7 @@ const ChickyOinkReportContextProvider = ({
   );
 
   return (
-    <ChickyOinkReportContext.Provider
+    <SalesReportContext.Provider
       value={{
         sales,
         inventory,
@@ -179,8 +200,8 @@ const ChickyOinkReportContextProvider = ({
       }}
     >
       {children}
-    </ChickyOinkReportContext.Provider>
+    </SalesReportContext.Provider>
   );
 };
 
-export default ChickyOinkReportContextProvider;
+export default SalesReportContextProvider;

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import ChickyOinkReport from "../../components/reports/create/chicky-oink/ChickyOinkReport";
+import ChickyOinkReport from "../../components/reports/create/SalesReport";
 import Button from "../../components/UI/Button";
 
 export default function ReportCreatePage() {

@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import type { IInventoryItem } from "../../../../constants/ChickyOinkInventory";
+import type { IInventoryItem } from "../../../@types/SalesReport";
 import {
-  ChickyOinkReportContext,
-  type ChickyOinkReportContextType,
-} from "../../../../context/chickyReportContext";
+  SalesReportContext,
+  type SalesReportContextType,
+} from "../../../context/salesReportContext";
 
 interface Props {
   inventoryItem: IInventoryItem;
@@ -11,8 +11,8 @@ interface Props {
 
 export default function ItemizedRow({ inventoryItem }: Props) {
   const { sales, inventory, setSales, setInventory } = useContext(
-    ChickyOinkReportContext
-  ) as ChickyOinkReportContextType;
+    SalesReportContext
+  ) as SalesReportContextType;
 
   return (
     <div className="flex items-center gap-5">
@@ -22,7 +22,7 @@ export default function ItemizedRow({ inventoryItem }: Props) {
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Quantity"
           type="number"
-          value={sales[inventoryItem.attribute]}
+          value={sales[inventoryItem.attribute as keyof typeof sales]}
           onChange={(e) => {
             const inputValue = e.target.value ? parseFloat(e.target.value) : 0;
             setSales({ ...sales, [inventoryItem.attribute]: inputValue });
@@ -46,7 +46,8 @@ export default function ItemizedRow({ inventoryItem }: Props) {
       <span className="font-bold">
         ₱
         {(
-          (sales[inventoryItem.attribute] ?? 0) * inventoryItem.price!
+          (sales[inventoryItem.attribute as keyof typeof sales] ?? 0) *
+          inventoryItem.price!
         ).toLocaleString()}
       </span>
     </div>

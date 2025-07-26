@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import {
-  ChickyOinkReportContext,
-  type ChickyOinkReportContextType,
-} from "../../../../context/chickyReportContext";
-import type { IExpense } from "../../../../@types/SalesReport";
+  SalesReportContext,
+  type SalesReportContextType,
+} from "../../../context/salesReportContext";
+import type { IExpense } from "../../../@types/SalesReport";
 
 interface Props {
   index: number;
@@ -13,8 +13,8 @@ const disabledExpenses = ["Grab", "FoodPanda", "GCash", "Commission Fee"];
 
 export default function ExpenseRow({ index }: Props) {
   const { setExpenses, expenses } = useContext(
-    ChickyOinkReportContext
-  ) as ChickyOinkReportContextType;
+    SalesReportContext
+  ) as SalesReportContextType;
 
   return (
     <div className="flex gap-4">

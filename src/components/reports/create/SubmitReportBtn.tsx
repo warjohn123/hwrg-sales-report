@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
-import { EMPLOYEE_ASSIGNMENT } from "../../../../@types/User";
+import { EMPLOYEE_ASSIGNMENT } from "../../../@types/User";
 import {
-  ChickyOinkReportContext,
-  type ChickyOinkReportContextType,
-} from "../../../../context/chickyReportContext";
-import { createSalesReport } from "../../../../services/reports.service";
-import Button from "../../../UI/Button";
+  SalesReportContext,
+  type SalesReportContextType,
+} from "../../../context/salesReportContext";
+import { createSalesReport } from "../../../services/reports.service";
+import Button from "../../UI/Button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-export default function ChickyOinkSubmitReportBtn() {
+export default function SubmitReportBtn() {
   const {
     cash,
     cashFund,
@@ -19,7 +19,7 @@ export default function ChickyOinkSubmitReportBtn() {
     expenses,
     onDuty,
     preparedBy,
-  } = useContext(ChickyOinkReportContext) as ChickyOinkReportContextType;
+  } = useContext(SalesReportContext) as SalesReportContextType;
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const navigate = useNavigate();
 

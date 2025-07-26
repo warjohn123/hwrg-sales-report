@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { type IChickyOinkReport } from "../../@types/ChickyOinkReport";
-import ChickyOinkReportDetails from "../../components/reports/details/chicky-oink/ChickyOinkReportDetails";
+import SalesReportDetails from "../../components/reports/details/SalesReportDetails";
 import { fetchReportDetails } from "../../services/reports.service";
 
 export default function ReportDetailPage() {
@@ -27,5 +27,5 @@ export default function ReportDetailPage() {
 
   if (loading) return <>Loading report...</>;
   if (!report) return <>Report not found...</>;
-  return <ChickyOinkReportDetails report={report} />;
+  return <SalesReportDetails report={report} />;
 }

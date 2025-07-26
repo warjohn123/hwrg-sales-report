@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import {
-  ChickyOinkReportContext,
-  type ChickyOinkReportContextType,
-} from "../../../../context/chickyReportContext";
-import Button from "../../../UI/Button";
+  SalesReportContext,
+  type SalesReportContextType,
+} from "../../../context/salesReportContext";
+import Button from "../../UI/Button";
 import ExpenseRow from "./ExpenseRow";
 
-export default function ChickyOinkExpenses() {
+export default function ExpensesList() {
   const { setExpenses, expenses, selectedBranch } = useContext(
-    ChickyOinkReportContext
-  ) as ChickyOinkReportContextType;
+    SalesReportContext
+  ) as SalesReportContextType;
 
   const totalExpenses = expenses.reduce(
     (partialSum, a) => partialSum + (a.value || 0),

@@ -1,3 +1,5 @@
+import type { ChickyOinkSales } from "./ChickyOinkReport";
+import type { ImagawayakiSales } from "./ImagawayakiReport";
 import type { IAssignment } from "./User";
 
 export interface IExpense {
@@ -5,6 +7,12 @@ export interface IExpense {
   sales_report_id?: number;
   name: string;
   value: number;
+}
+
+export interface IInventoryItem {
+  name: string;
+  attribute: keyof ChickyOinkSales | keyof ImagawayakiSales;
+  price: number;
 }
 
 export interface IInventoryFormat {
