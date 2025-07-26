@@ -99,7 +99,7 @@ export default function ChickyOinkReportsList() {
           {reports.length > 0 ? (
             reports.map((report) => (
               <tr key={report.id} className="hover:bg-gray-50">
-                <td className="px-4 py-3 border-b text-blue-600 underline">
+                <td className="px-4 py-3 border-b underline">
                   <Link to={`/reports/${report.id}`}>{report.title}</Link>
                 </td>
                 <td className="px-4 py-3 border-b font-bold">
