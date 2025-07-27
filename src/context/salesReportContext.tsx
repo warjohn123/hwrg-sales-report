@@ -90,7 +90,7 @@ function assignNewInventoryItems(
         delivered: 0,
         pull_out: 0,
         sales: 0,
-        remaining_stocks: 0,
+        remaining_stocks: inventory[item].remaining_stocks,
         notes: "",
       };
     }
