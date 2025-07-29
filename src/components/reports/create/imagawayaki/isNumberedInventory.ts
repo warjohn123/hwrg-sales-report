@@ -8,6 +8,7 @@ export const isNumberedInventory = (key: string) =>
   key === "custard" ||
   key === "straws" ||
   key === "blue_lemon" ||
+  key === "sugar" ||
   key === "lemon_fruit" ||
   key === "cucumber" ||
   key === "cucumber_fruit" ||

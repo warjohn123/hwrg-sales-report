@@ -72,6 +72,7 @@ const initialInventory: IImagawayakiReportInventory = {
   straws: defaultInventoryItem,
   blue_lemon: defaultInventoryItem,
   lemon_fruit: defaultInventoryItem,
+  sugar: defaultInventoryItem,
   cucumber: defaultInventoryItem,
   cucumber_fruit: defaultInventoryItem,
   ice_cube: defaultInventoryItem,
@@ -93,6 +94,8 @@ function assignNewInventoryItems(inventory: IImagawayakiReportInventory) {
       notes: string;
     };
   } = {};
+
+  console.log("inventory", inventory);
 
   for (let item in inventory) {
     newInventory[item] = {

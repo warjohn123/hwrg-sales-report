@@ -38,8 +38,6 @@ export default function ImagawayakiReport() {
     fetchLastReport();
   }, [selectedBranch]);
 
-  console.log("selected branch", selectedBranch);
-
   return (
     <ImagawayakiReportContextProvider
       report={report}

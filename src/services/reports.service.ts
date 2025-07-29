@@ -28,8 +28,6 @@ export async function getLastReportByBranchId(branch_id: number) {
       }/api/sales-reports/${branch_id}/get-last-report`
     );
 
-    console.log("res", res);
-
     return res.json();
   } catch (e) {
     console.log("e", e);
