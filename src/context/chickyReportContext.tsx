@@ -5,9 +5,9 @@ import type {
   IChickyOinkReportInventory,
 } from "../@types/ChickyOinkReport";
 import type { IExpense } from "../@types/SalesReport";
-import { CHICKY_OINK_INVENTORY } from "../constants/ChickyOinkInventory";
+import { CHICKY_OINK_PRODUCTS } from "../constants/ChickyOinkProduct";
 import type { IBranchAssignment } from "../@types/BranchAssignment";
-import { DISPLAY_ORDER } from "../components/reports/create/chicky-oink/displayOrder";
+import { CHICKY_OINK_DISPLAY_ORDER } from "../components/reports/create/chicky-oink/displayOrder";
 
 export interface ChickyOinkReportContextType {
   sales: ChickyOinkSales;
@@ -63,7 +63,6 @@ const defaultInventoryItem = {
 };
 
 function assignNewInventoryItems(inventory: IChickyOinkReportInventory) {
-  // console.log("inventory", inventory);
   const newInventory: {
     [key: string]: {
       initial_stocks: number;
@@ -91,7 +90,7 @@ function assignNewInventoryItems(inventory: IChickyOinkReportInventory) {
   }
 
   const sortedInventory = Object.fromEntries(
-    DISPLAY_ORDER.map((key) => [key, newInventory[key]]).filter(
+    CHICKY_OINK_DISPLAY_ORDER.map((key) => [key, newInventory[key]]).filter(
       ([_, val]) => val
     )
   );
@@ -140,15 +139,15 @@ const ChickyOinkReportContextProvider = ({
   }, [report]);
 
   const totalSales =
-    sales.regular_chicken * CHICKY_OINK_INVENTORY.REGULAR_CHICKEN.price +
-    sales.spicy_chicken * CHICKY_OINK_INVENTORY.SPICY_CHICKEN.price +
-    sales.regular_liempo * CHICKY_OINK_INVENTORY.REGULAR_LIEMPO.price +
-    sales.spicy_liempo * CHICKY_OINK_INVENTORY.SPICY_LIEMPO.price +
-    sales.liog * CHICKY_OINK_INVENTORY.LIOG.price +
-    sales.spicy_liog * CHICKY_OINK_INVENTORY.SPICY_LIOG.price +
-    sales.poso * CHICKY_OINK_INVENTORY.POSO.price +
-    sales.atchara_small * CHICKY_OINK_INVENTORY.ATCHARA_SMALL.price +
-    sales.atchara_big * CHICKY_OINK_INVENTORY.ATCHARA_BIG.price;
+    sales.regular_chicken * CHICKY_OINK_PRODUCTS.REGULAR_CHICKEN.price +
+    sales.spicy_chicken * CHICKY_OINK_PRODUCTS.SPICY_CHICKEN.price +
+    sales.regular_liempo * CHICKY_OINK_PRODUCTS.REGULAR_LIEMPO.price +
+    sales.spicy_liempo * CHICKY_OINK_PRODUCTS.SPICY_LIEMPO.price +
+    sales.liog * CHICKY_OINK_PRODUCTS.LIOG.price +
+    sales.spicy_liog * CHICKY_OINK_PRODUCTS.SPICY_LIOG.price +
+    sales.poso * CHICKY_OINK_PRODUCTS.POSO.price +
+    sales.atchara_small * CHICKY_OINK_PRODUCTS.ATCHARA_SMALL.price +
+    sales.atchara_big * CHICKY_OINK_PRODUCTS.ATCHARA_BIG.price;
 
   const totalExpenses = expenses.reduce(
     (partialSum, expense) => partialSum + (expense.value || 0),

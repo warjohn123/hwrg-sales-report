@@ -1,6 +1,9 @@
 import type { IChickyOinkReport } from "../@types/ChickyOinkReport";
+import type { IImagawayakiReport } from "../@types/ImagawayakiReport";
 
-export async function createSalesReport(report: IChickyOinkReport) {
+export async function createSalesReport(
+  report: IChickyOinkReport | IImagawayakiReport
+) {
   try {
     const res = await fetch(
       `${import.meta.env.VITE_API_URL}/api/sales-reports/add`,

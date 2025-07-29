@@ -1,12 +1,12 @@
 import type { ChickyOinkSales } from "../@types/ChickyOinkReport";
 
-export interface IInventoryItem {
+export interface IChickyOinkProductItem {
   name: string;
   attribute: keyof ChickyOinkSales;
   price: number;
 }
 
-export const CHICKY_OINK_INVENTORY: { [key: string]: IInventoryItem } = {
+export const CHICKY_OINK_PRODUCTS: { [key: string]: IChickyOinkProductItem } = {
   REGULAR_CHICKEN: {
     name: "Regular Chicken",
     attribute: "regular_chicken",

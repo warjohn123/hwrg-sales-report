@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CHICKY_OINK_INVENTORY } from "../../../../constants/ChickyOinkInventory";
+import { CHICKY_OINK_PRODUCTS } from "../../../../constants/ChickyOinkProduct";
 import ItemizedRow from "./ItemizedRow";
 import {
   ChickyOinkReportContext,
@@ -18,8 +18,8 @@ export default function ChickyOinkSalesReport() {
       <h1 className="font-bold text-2xl">Sales Report</h1>
 
       <div className="mt-5 flex flex-col gap-3">
-        {Object.entries(CHICKY_OINK_INVENTORY).map(([key]) => (
-          <ItemizedRow key={key} inventoryItem={CHICKY_OINK_INVENTORY[key]} />
+        {Object.entries(CHICKY_OINK_PRODUCTS).map(([key]) => (
+          <ItemizedRow key={key} product={CHICKY_OINK_PRODUCTS[key]} />
         ))}
       </div>
 

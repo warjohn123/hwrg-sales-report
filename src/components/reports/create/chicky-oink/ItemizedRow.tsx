@@ -1,53 +1,50 @@
 import { useContext } from "react";
-import type { IInventoryItem } from "../../../../constants/ChickyOinkInventory";
+import type { IChickyOinkProductItem } from "../../../../constants/ChickyOinkProduct";
 import {
   ChickyOinkReportContext,
   type ChickyOinkReportContextType,
 } from "../../../../context/chickyReportContext";
 
 interface Props {
-  inventoryItem: IInventoryItem;
+  product: IChickyOinkProductItem;
 }
 
-export default function ItemizedRow({ inventoryItem }: Props) {
+export default function ItemizedRow({ product }: Props) {
   const { sales, inventory, setSales, setInventory } = useContext(
     ChickyOinkReportContext
   ) as ChickyOinkReportContextType;
 
   return (
     <div className="flex items-center gap-5">
-      <span className="w-30">{inventoryItem.name}</span>
+      <span className="w-30">{product.name}</span>
       <span>
         <input
           className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Quantity"
           type="number"
-          value={sales[inventoryItem.attribute]}
+          value={sales[product.attribute]}
           onChange={(e) => {
             const inputValue = e.target.value ? parseFloat(e.target.value) : 0;
-            setSales({ ...sales, [inventoryItem.attribute]: inputValue });
+            setSales({ ...sales, [product.attribute]: inputValue });
             setInventory({
               ...inventory,
-              [inventoryItem.attribute]: {
-                ...inventory[inventoryItem.attribute],
+              [product.attribute]: {
+                ...inventory[product.attribute],
                 sales: inputValue,
                 remaining_stocks:
-                  inventory[inventoryItem.attribute].delivered +
-                  inventory[inventoryItem.attribute].initial_stocks -
-                  (inputValue + inventory[inventoryItem.attribute].pull_out),
+                  inventory[product.attribute].delivered +
+                  inventory[product.attribute].initial_stocks -
+                  (inputValue + inventory[product.attribute].pull_out),
               },
             });
           }}
         />
       </span>
       <span className=""> X </span>
-      <span className="w-7">{inventoryItem.price}</span>
+      <span className="w-7">{product.price}</span>
       <span className=""> = </span>
       <span className="font-bold">
-        ₱
-        {(
-          (sales[inventoryItem.attribute] ?? 0) * inventoryItem.price!
-        ).toLocaleString()}
+        ₱{((sales[product.attribute] ?? 0) * product.price!).toLocaleString()}
       </span>
     </div>
   );

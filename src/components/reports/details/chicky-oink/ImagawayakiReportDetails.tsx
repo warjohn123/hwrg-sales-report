@@ -1,33 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import type {
-  ChickyOinkSales,
-  IChickyOinkReport,
-} from "../../../../@types/ChickyOinkReport";
-import { CHICKY_OINK_PRODUCTS } from "../../../../constants/ChickyOinkProduct";
+  ImagawayakiSales,
+  IImagawayakiReport,
+} from "../../../../@types/ImagawayakiReport";
+import { IMAGAWAYAKI_PRODUCTS } from "../../../../constants/ImagawayakiProduct";
 import Button from "../../../UI/Button";
 import Divider from "../../../UI/Divider";
-import { CHICKY_OINK_DISPLAY_ORDER } from "../../create/chicky-oink/displayOrder";
+import { IMAGAWAYAKI_INVENTORY_DISPLAY_ORDER } from "../../create/imagawayaki/displayOrder";
 
 interface Props {
-  report: IChickyOinkReport;
+  report: IImagawayakiReport;
 }
 
-function getTotalSales(sales: ChickyOinkSales) {
+function getTotalSales(sales: ImagawayakiSales) {
   const totalSales =
-    sales.regular_chicken * CHICKY_OINK_PRODUCTS.REGULAR_CHICKEN.price +
-    sales.spicy_chicken * CHICKY_OINK_PRODUCTS.SPICY_CHICKEN.price +
-    sales.regular_liempo * CHICKY_OINK_PRODUCTS.REGULAR_LIEMPO.price +
-    sales.spicy_liempo * CHICKY_OINK_PRODUCTS.SPICY_LIEMPO.price +
-    sales.liog * CHICKY_OINK_PRODUCTS.LIOG.price +
-    sales.spicy_liog * CHICKY_OINK_PRODUCTS.SPICY_LIOG.price +
-    sales.poso * CHICKY_OINK_PRODUCTS.POSO.price +
-    sales.atchara_small * CHICKY_OINK_PRODUCTS.ATCHARA_SMALL.price +
-    sales.atchara_big * CHICKY_OINK_PRODUCTS.ATCHARA_BIG.price;
+    sales.chocolate * IMAGAWAYAKI_PRODUCTS.CHOCOLATE.price +
+    sales.oreo * IMAGAWAYAKI_PRODUCTS.OREO.price +
+    sales.cheese * IMAGAWAYAKI_PRODUCTS.CHEESE.price +
+    sales.custard * IMAGAWAYAKI_PRODUCTS.CUSTARD.price +
+    sales.plain * IMAGAWAYAKI_PRODUCTS.PLAIN.price +
+    sales.juice * IMAGAWAYAKI_PRODUCTS.JUICE.price +
+    sales.mineral_water * IMAGAWAYAKI_PRODUCTS.MINERAL_WATER.price +
+    sales.minute_maid * IMAGAWAYAKI_PRODUCTS.MINUTE_MAID.price;
 
   return totalSales;
 }
 
-export default function ChickyOinkReportDetails({ report }: Props) {
+export default function ImagawayakiReportDetails({ report }: Props) {
   const navigate = useNavigate();
 
   const totalExpenses = report.expenses.reduce(
@@ -50,20 +49,20 @@ export default function ChickyOinkReportDetails({ report }: Props) {
       {/** Sales Section */}
       <div>
         <div className="mt-5 flex flex-col gap-3">
-          {Object.entries(CHICKY_OINK_PRODUCTS).map(([key]) => (
+          {Object.entries(IMAGAWAYAKI_PRODUCTS).map(([key]) => (
             <div className="flex flex-row gap-3" key={key}>
-              <div className="w-30">{CHICKY_OINK_PRODUCTS[key].name}</div>
+              <div className="w-30">{IMAGAWAYAKI_PRODUCTS[key].name}</div>
               <div className="font-bold w-10">
-                {report.sales[key.toLowerCase() as keyof ChickyOinkSales]}
+                {report.sales[key.toLowerCase() as keyof ImagawayakiSales]}
               </div>
               <div>X</div>
-              <div className="w-10">{CHICKY_OINK_PRODUCTS[key].price}</div>
+              <div className="w-10">{IMAGAWAYAKI_PRODUCTS[key].price}</div>
               <div>=</div>
               <span className="font-bold">
                 ₱
                 {(
-                  (report.sales[CHICKY_OINK_PRODUCTS[key].attribute] ?? 0) *
-                  CHICKY_OINK_PRODUCTS[key].price!
+                  (report.sales[IMAGAWAYAKI_PRODUCTS[key].attribute] ?? 0) *
+                  IMAGAWAYAKI_PRODUCTS[key].price!
                 ).toLocaleString()}
               </span>
             </div>
@@ -155,8 +154,8 @@ export default function ChickyOinkReportDetails({ report }: Props) {
               {Object.keys(report.inventory)
                 .sort(
                   (a, b) =>
-                    CHICKY_OINK_DISPLAY_ORDER.indexOf(a) -
-                    CHICKY_OINK_DISPLAY_ORDER.indexOf(b)
+                    IMAGAWAYAKI_INVENTORY_DISPLAY_ORDER.indexOf(a) -
+                    IMAGAWAYAKI_INVENTORY_DISPLAY_ORDER.indexOf(b)
                 )
                 .map((key: string) => (
                   <tr key={key}>
