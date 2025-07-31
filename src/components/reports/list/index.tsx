@@ -61,7 +61,7 @@ export default function ChickyOinkReportsList() {
 
   useEffect(() => {
     if (!user?.id) return;
-    if (dates.length === 2) fetchEmployeeReports();
+    if (dates.length === 2) fetchEmployeeReports(page);
   }, [page, user, dates]);
 
   if (isLoading) return <>Loading reports...</>;
