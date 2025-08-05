@@ -38,7 +38,8 @@ export default function ReportsPage() {
           >
             Logout
           </button>
-          {employee?.type === USER_TYPE.EMPLOYEE && (
+          {(employee?.type === USER_TYPE.EMPLOYEE ||
+            employee?.type === USER_TYPE.INVENTORY_CHECKER) && (
             <Link
               to="/reports/create"
               className="px-4 py-2 bg-blue-600 text-sm text-white rounded hover:bg-blue-700"

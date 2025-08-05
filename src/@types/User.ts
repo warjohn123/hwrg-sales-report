@@ -21,6 +21,7 @@ export const USER_TYPE = {
   EMPLOYEE: "employee",
   SALES_REPORT: "sales_report",
   ADMIN: "admin",
+  INVENTORY_CHECKER: "inventory_checker",
 };
 
 export const EMPLOYEE_ASSIGNMENT = {
