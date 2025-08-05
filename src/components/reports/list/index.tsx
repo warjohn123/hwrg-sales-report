@@ -78,6 +78,7 @@ export default function ChickyOinkReportsList() {
             onChange={(selectedDates) => {
               setDates(selectedDates);
               if (selectedDates.length === 2) {
+                setPage(1);
                 datePickerRef.current?.closeCalendar();
               }
             }}
