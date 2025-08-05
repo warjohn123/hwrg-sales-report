@@ -1,13 +1,17 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
   ChickyOinkReportContext,
   type ChickyOinkReportContextType,
 } from "../../../../context/chickyReportContext";
 import Button from "../../../UI/Button";
 import ExpenseRow from "./ExpenseRow";
+import {
+  CHICKY_OINK_BASE_SALES,
+  getChickyOinkCommission,
+} from "../../../../lib/getChickyOinkCommission";
 
 export default function ChickyOinkExpenses() {
-  const { setExpenses, expenses, selectedBranch } = useContext(
+  const { setExpenses, expenses, selectedBranch, totalSales } = useContext(
     ChickyOinkReportContext
   ) as ChickyOinkReportContextType;
 
@@ -19,6 +23,27 @@ export default function ChickyOinkExpenses() {
   const onAddExpense = () => {
     setExpenses([...expenses, { name: "", value: 0 }]);
   };
+
+  useEffect(() => {
+    if (totalSales > CHICKY_OINK_BASE_SALES) {
+      const newCommission = {
+        name: "Commission",
+        value: getChickyOinkCommission(totalSales),
+      };
+
+      setExpenses((prevExpenses) => {
+        const filtered = prevExpenses.filter(
+          (expense) => expense.name !== "Commission"
+        );
+        return [...filtered, newCommission];
+      });
+    } else {
+      // Remove commission if sales are below the base
+      setExpenses((prevExpenses) =>
+        prevExpenses.filter((expense) => expense.name !== "Commission")
+      );
+    }
+  }, [totalSales]);
 
   if (!!!selectedBranch) return <></>;
 
