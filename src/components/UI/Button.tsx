@@ -10,7 +10,7 @@ export default function Button({
   text,
   buttonType,
   className,
-  disabled = false,
+  disabled,
   onClick,
 }: Props) {
   const styles = {
