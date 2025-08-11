@@ -2,7 +2,7 @@ import type { SalesReport } from "./SalesReport";
 
 export interface IPotatoFryReport extends SalesReport {
   sales: PotatoFrySales;
-  inventory: IPotatoFryInventoryFormat;
+  inventory: IPotatoFryReportInventory;
 }
 
 export const POTATO_FRY_SIZES = {
