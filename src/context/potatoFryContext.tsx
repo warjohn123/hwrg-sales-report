@@ -1,8 +1,9 @@
 import { createContext, useEffect, useState } from "react";
-import type {
-  IPotatoFryReport,
-  IPotatoFryReportInventory,
-  PotatoFrySales,
+import {
+  POTATO_FRY_PRICES,
+  type IPotatoFryReport,
+  type IPotatoFryReportInventory,
+  type PotatoFrySales,
 } from "../@types/PotatoFryReport";
 import type { IExpense } from "../@types/SalesReport";
 import type { IBranchAssignment } from "../@types/BranchAssignment";
@@ -115,8 +116,8 @@ const PotatoFryReportContextProvider = ({
   const [inventory, setInventory] =
     useState<IPotatoFryReportInventory>(initialInventory);
   const [expenses, setExpenses] = useState<IExpense[]>([
-    { name: "Grab", value: 0 },
-    { name: "FoodPanda", value: 0 },
+    // { name: "Grab", value: 0 },
+    // { name: "FoodPanda", value: 0 },
     { name: "GCash", value: 0 },
   ]);
   const [cash, setCash] = useState<number>(0);
@@ -125,7 +126,13 @@ const PotatoFryReportContextProvider = ({
   const [onDuty, setOnDuty] = useState<string>("");
 
   const totalExpenses = 0;
-  const totalSales = 0;
+  const totalSales = Object.entries(sales).reduce(
+    (acc, [size, curr]) =>
+      acc +
+      (curr.quantity || 0) *
+        POTATO_FRY_PRICES[size as keyof typeof POTATO_FRY_PRICES],
+    0
+  );
 
   useEffect(() => {
     if (report?.inventory) {

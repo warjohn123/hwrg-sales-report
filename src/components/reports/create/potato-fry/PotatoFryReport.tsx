@@ -8,6 +8,7 @@ import PotatoFrySelectBranch from "./PotatoFrySelectBranch";
 import Divider from "../../../UI/Divider";
 import PotatoFrySummary from "./PotatoFrySummary";
 import PotatoFryExpenses from "./PotatoFryExpenses";
+import PotatoFrySales from "./PotatoFrySales";
 
 export default function PotatoFryReport() {
   const [selectedBranch, setSelectedBranch] = useState<
@@ -47,7 +48,7 @@ export default function PotatoFryReport() {
         <div>Loading last report...</div>
       ) : (
         <>
-          {/* <PotatoFrySalesReport /> */}
+          <PotatoFrySales />
           <Divider />
           <PotatoFryExpenses />
           <Divider />

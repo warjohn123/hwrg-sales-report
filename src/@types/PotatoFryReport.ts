@@ -17,7 +17,7 @@ export type PotatoFrySize =
 export const POTATO_FRY_PRICES: Record<PotatoFrySize, number> = {
   [POTATO_FRY_SIZES.SMALL]: 40,
   [POTATO_FRY_SIZES.MEDIUM]: 55,
-  [POTATO_FRY_SIZES.LARGE]: 60,
+  [POTATO_FRY_SIZES.LARGE]: 65,
 };
 
 export type PotatoFrySales = Record<PotatoFrySize, { quantity: number }>;
