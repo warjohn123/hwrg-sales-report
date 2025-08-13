@@ -1,8 +1,9 @@
 import type { IChickyOinkReport } from "../@types/ChickyOinkReport";
 import type { IImagawayakiReport } from "../@types/ImagawayakiReport";
+import type { IPotatoFryReport } from "../@types/PotatoFryReport";
 
 export async function createSalesReport(
-  report: IChickyOinkReport | IImagawayakiReport
+  report: IChickyOinkReport | IImagawayakiReport | IPotatoFryReport
 ) {
   try {
     const res = await fetch(

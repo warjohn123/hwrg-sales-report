@@ -95,8 +95,6 @@ function assignNewInventoryItems(inventory: IImagawayakiReportInventory) {
     };
   } = {};
 
-  console.log("inventory", inventory);
-
   for (let item in inventory) {
     newInventory[item] = {
       initial_stocks: inventory[item].remaining_stocks,

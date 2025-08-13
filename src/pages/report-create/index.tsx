@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { EMPLOYEE_ASSIGNMENT, type IUser } from "../../@types/User";
 import { fetchUserDetails } from "../../services/user.service";
 import ImagawayakiReport from "../../components/reports/create/imagawayaki/ImagawayakiReport";
+import PotatoFryReport from "../../components/reports/create/potato-fry/PotatoFryReport";
 
 export default function ReportCreatePage() {
   const navigate = useNavigate();
@@ -36,10 +37,14 @@ export default function ReportCreatePage() {
         buttonType="primary"
       />
       <div className="mt-10">
-        {employee.assignment === EMPLOYEE_ASSIGNMENT.CHICKY_OINK ? (
+        {employee.assignment === EMPLOYEE_ASSIGNMENT.CHICKY_OINK && (
           <ChickyOinkReport />
-        ) : (
+        )}
+        {employee.assignment === EMPLOYEE_ASSIGNMENT.IMAGAWAYAKI && (
           <ImagawayakiReport />
+        )}
+        {employee.assignment === EMPLOYEE_ASSIGNMENT.POTATO_FRY && (
+          <PotatoFryReport />
         )}
       </div>
     </div>
