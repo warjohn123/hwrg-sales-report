@@ -38,7 +38,7 @@ export default function PotatoFrySubmitReportBtn() {
           hour12: true,
         })}`,
         report_date: new Date().toISOString(),
-        type: EMPLOYEE_ASSIGNMENT.IMAGAWAYAKI,
+        type: EMPLOYEE_ASSIGNMENT.POTATO_FRY,
         branch_id: selectedBranch?.branch_id ?? 0,
         user_id: selectedBranch?.user_id ?? "",
         cash,
