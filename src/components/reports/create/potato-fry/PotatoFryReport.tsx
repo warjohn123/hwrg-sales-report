@@ -9,6 +9,8 @@ import Divider from "../../../UI/Divider";
 import PotatoFrySummary from "./PotatoFrySummary";
 import PotatoFryExpenses from "./PotatoFryExpenses";
 import PotatoFrySales from "./PotatoFrySales";
+import PotatoFryInventoryTable from "./PotatoFryInventoryTable";
+import PotatoFrySubmitReportBtn from "./PotatoFrySubmitReportBtn";
 
 export default function PotatoFryReport() {
   const [selectedBranch, setSelectedBranch] = useState<
@@ -54,8 +56,8 @@ export default function PotatoFryReport() {
           <Divider />
           <PotatoFrySummary />
           <Divider />
-          {/* <ImagawayakiInventoryTable />
-          <ImagawayakiSubmitReportBtn /> */}
+          <PotatoFryInventoryTable />
+          <PotatoFrySubmitReportBtn />
         </>
       )}
     </PotatoFryReportContextProvider>

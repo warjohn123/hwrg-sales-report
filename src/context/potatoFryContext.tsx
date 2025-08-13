@@ -76,11 +76,11 @@ const initialInventory: IPotatoFryReportInventory = {
 function assignNewInventoryItems(inventory: IPotatoFryReportInventory) {
   const newInventory: {
     [key: string]: {
-      initial_stocks: string | number;
-      delivered: string | number;
-      pull_out: string | number;
-      sales: string | number;
-      remaining_stocks: string | number;
+      initial_stocks: number;
+      delivered: number;
+      pull_out: number;
+      sales: number;
+      remaining_stocks: number;
       notes: string;
     };
   } = {};
@@ -125,7 +125,10 @@ const PotatoFryReportContextProvider = ({
   const [preparedBy, setPreparedBy] = useState<string>("");
   const [onDuty, setOnDuty] = useState<string>("");
 
-  const totalExpenses = 0;
+  const totalExpenses = expenses.reduce(
+    (acc, curr) => acc + (curr.value || 0),
+    0
+  );
   const totalSales = Object.entries(sales).reduce(
     (acc, [size, curr]) =>
       acc +
