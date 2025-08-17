@@ -5,6 +5,7 @@ import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { fetchUserDetails } from "../../services/user.service";
 import { useEffect, useState } from "react";
 import { USER_TYPE, type IUser } from "../../@types/User";
+import Version from "../../components/Version";
 
 export default function ReportsPage() {
   const navigate = useNavigate();
@@ -50,8 +51,15 @@ export default function ReportsPage() {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <ReportsList />
+      <div
+        className="flex flex-col justify-between"
+        style={{ height: "calc(100vh - 100px)" }}
+      >
+        <div className="overflow-x-auto">
+          <ReportsList />
+        </div>
+
+        <Version />
       </div>
     </div>
   );
