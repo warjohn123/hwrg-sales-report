@@ -11,5 +11,6 @@ export const CHICKY_OINK_DISPLAY_ORDER = [
   "coke",
   "sprite",
   "royal",
+  "mineral_water",
   "uling",
 ];

@@ -54,6 +54,7 @@ const initialSales: ChickyOinkSales = {
   coke: 0,
   sprite: 0,
   royal: 0,
+  mineral_water: 0
 };
 
 const defaultInventoryItem = {
@@ -106,6 +107,7 @@ const initialInventory: IChickyOinkReportInventory = {
   coke: defaultInventoryItem,
   sprite: defaultInventoryItem,
   royal: defaultInventoryItem,
+  mineral_water: defaultInventoryItem,
   uling: defaultInventoryItem,
 };
 
@@ -148,7 +150,8 @@ const ChickyOinkReportContextProvider = ({
     sales.atchara_big * CHICKY_OINK_PRODUCTS.ATCHARA_BIG.price +
     sales.coke * CHICKY_OINK_PRODUCTS.COKE.price +
     sales.royal * CHICKY_OINK_PRODUCTS.ROYAL.price +
-    sales.sprite * CHICKY_OINK_PRODUCTS.SPRITE.price;
+    sales.sprite * CHICKY_OINK_PRODUCTS.SPRITE.price +
+    sales.mineral_water * CHICKY_OINK_PRODUCTS.MINERAL_WATER.price;
 
   const totalExpenses = expenses.reduce(
     (partialSum, expense) => partialSum + (expense.value || 0),

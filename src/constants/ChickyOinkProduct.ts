@@ -59,5 +59,10 @@ export const CHICKY_OINK_PRODUCTS: { [key: string]: IChickyOinkProductItem } = {
     attribute: "royal",
     price: 20,
   },
+  MINERAL_WATER: {
+    name: "Mineral Water",
+    attribute: "mineral_water",
+    price: 20,
+  },
   ULING: { name: "Uling", attribute: "uling", price: 0 },
 };

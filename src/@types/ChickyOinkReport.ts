@@ -18,6 +18,7 @@ export interface ChickyOinkSales {
   coke: number;
   royal: number;
   sprite: number
+  mineral_water: number
   uling: number;
 }
 
