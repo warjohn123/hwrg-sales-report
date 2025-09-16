@@ -59,7 +59,7 @@ export default function ChickyOinkSubmitReportBtn() {
     }
   };
 
-  if (!!!selectedBranch) return <></>;
+  if (!selectedBranch) return <></>;
 
   return (
     <div className="mt-5">

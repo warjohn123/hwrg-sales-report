@@ -51,6 +51,9 @@ const initialSales: ChickyOinkSales = {
   atchara_small: 0,
   liog: 0,
   spicy_liog: 0,
+  coke: 0,
+  sprite: 0,
+  royal: 0,
 };
 
 const defaultInventoryItem = {
@@ -62,28 +65,20 @@ const defaultInventoryItem = {
   notes: "",
 };
 
-function assignNewInventoryItems(inventory: IChickyOinkReportInventory) {
-  const newInventory: {
-    [key: string]: {
-      initial_stocks: number;
-      delivered: number;
-      pull_out: number;
-      sales: number;
-      remaining_stocks: number;
-      notes: string;
-    };
-  } = {};
+function assignNewInventoryItems(prevInventory: IChickyOinkReportInventory) {
+  const newInventory: IChickyOinkReportInventory = {};
 
-  for (let item in inventory) {
+  for (const item in initialInventory) {
+    const prev = prevInventory[item]; 
     if (item === "poso") {
       newInventory[item] = defaultInventoryItem;
     } else {
       newInventory[item] = {
-        initial_stocks: inventory[item].remaining_stocks,
+        initial_stocks: prev ? prev.remaining_stocks : 0,
         delivered: 0,
         pull_out: 0,
         sales: 0,
-        remaining_stocks: inventory[item].remaining_stocks,
+        remaining_stocks: prev ? prev.remaining_stocks : 0,
         notes: "",
       };
     }
@@ -91,7 +86,7 @@ function assignNewInventoryItems(inventory: IChickyOinkReportInventory) {
 
   const sortedInventory = Object.fromEntries(
     CHICKY_OINK_DISPLAY_ORDER.map((key) => [key, newInventory[key]]).filter(
-      ([_, val]) => val
+      ([, val]) => val
     )
   );
 
@@ -108,6 +103,9 @@ const initialInventory: IChickyOinkReportInventory = {
   atchara_big: defaultInventoryItem,
   atchara_small: defaultInventoryItem,
   poso: defaultInventoryItem,
+  coke: defaultInventoryItem,
+  sprite: defaultInventoryItem,
+  royal: defaultInventoryItem,
   uling: defaultInventoryItem,
 };
 
@@ -147,7 +145,10 @@ const ChickyOinkReportContextProvider = ({
     sales.spicy_liog * CHICKY_OINK_PRODUCTS.SPICY_LIOG.price +
     sales.poso * CHICKY_OINK_PRODUCTS.POSO.price +
     sales.atchara_small * CHICKY_OINK_PRODUCTS.ATCHARA_SMALL.price +
-    sales.atchara_big * CHICKY_OINK_PRODUCTS.ATCHARA_BIG.price;
+    sales.atchara_big * CHICKY_OINK_PRODUCTS.ATCHARA_BIG.price +
+    sales.coke * CHICKY_OINK_PRODUCTS.COKE.price +
+    sales.royal * CHICKY_OINK_PRODUCTS.ROYAL.price +
+    sales.sprite * CHICKY_OINK_PRODUCTS.SPRITE.price;
 
   const totalExpenses = expenses.reduce(
     (partialSum, expense) => partialSum + (expense.value || 0),

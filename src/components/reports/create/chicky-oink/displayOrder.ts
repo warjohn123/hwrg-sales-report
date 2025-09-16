@@ -8,5 +8,8 @@ export const CHICKY_OINK_DISPLAY_ORDER = [
   "poso",
   "atchara_small",
   "atchara_big",
+  "coke",
+  "sprite",
+  "royal",
   "uling",
 ];

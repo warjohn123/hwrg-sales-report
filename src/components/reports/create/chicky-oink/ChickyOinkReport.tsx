@@ -21,6 +21,8 @@ export default function ChickyOinkReport() {
 
   const fetchLastReport = async () => {
     if (!selectedBranch) return;
+    
+    setLoading(true)
 
     try {
       const res = await getLastReportByBranchId(selectedBranch.branch_id);

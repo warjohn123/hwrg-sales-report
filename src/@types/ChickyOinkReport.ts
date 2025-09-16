@@ -15,6 +15,9 @@ export interface ChickyOinkSales {
   poso: number;
   atchara_small: number;
   atchara_big: number;
+  coke: number;
+  royal: number;
+  sprite: number
   uling: number;
 }
 

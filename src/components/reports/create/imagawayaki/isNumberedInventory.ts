@@ -1,6 +1,9 @@
 export const isNumberedInventory = (key: string) =>
   key === "cups" ||
   key === "mineral_water" ||
+  key === "coke" ||
+  key === "royal" ||
+  key === "sprite" ||
   key === "minute_maid" ||
   key === "chocolate" ||
   key === "oreo" ||

@@ -23,6 +23,8 @@ export default function ImagawayakiReport() {
   const fetchLastReport = async () => {
     if (!selectedBranch) return;
 
+    setLoading(true)
+
     try {
       const res = await getLastReportByBranchId(selectedBranch.branch_id);
       setReport(res.sales_reports[0]);

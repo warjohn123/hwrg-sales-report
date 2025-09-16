@@ -48,4 +48,19 @@ export const IMAGAWAYAKI_PRODUCTS: { [key: string]: IImagawayakiProductItem } =
       attribute: "mineral_water",
       price: 20,
     },
+    COKE: {
+      name: "Coke",
+      attribute: "coke",
+      price: 20,
+    },
+    ROYAL: {
+      name: "Royal",
+      attribute: "royal",
+      price: 20,
+    },
+    SPRITE: {
+      name: "Sprite",
+      attribute: "sprite",
+      price: 20,
+    }
   };

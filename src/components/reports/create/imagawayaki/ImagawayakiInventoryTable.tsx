@@ -10,10 +10,10 @@ export default function ImagawayakiInventoryTable() {
     ImagawayakiReportContext
   ) as ImagawayakiReportContextType;
 
-  if (!!!selectedBranch) return <></>;
+  if (!selectedBranch) return <></>;
 
   const disabledSales = (key: string) =>
-    key === "mineral_water" || key === "minute_maid" || key === "cups";
+    key === "mineral_water" || key === "minute_maid" || key === "cups" || key === "coke" || key === "royal" || key === "sprite";
 
   const inputValue =
     (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => {

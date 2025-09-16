@@ -14,6 +14,9 @@ export interface ImagawayakiSales {
   juice: number;
   mineral_water: number;
   minute_maid: number;
+  coke: number;
+  royal: number;
+  sprite: number
 }
 
 export interface IImagawayakiInventoryFormat {

@@ -11,7 +11,7 @@ export default function ChickyOinkSalesReport() {
     ChickyOinkReportContext
   ) as ChickyOinkReportContextType;
 
-  if (!!!selectedBranch) return <></>;
+  if (!selectedBranch) return <></>;
 
   return (
     <div className="mt-5 mb-5">

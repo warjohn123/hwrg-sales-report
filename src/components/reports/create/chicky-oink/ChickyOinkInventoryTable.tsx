@@ -9,7 +9,7 @@ export default function ChickyOinkInventoryTable() {
     ChickyOinkReportContext
   ) as ChickyOinkReportContextType;
 
-  if (!!!selectedBranch) return <></>;
+  if (!selectedBranch) return <></>;
 
   return (
     <div className="overflow-x-auto mt-5 text-xs">

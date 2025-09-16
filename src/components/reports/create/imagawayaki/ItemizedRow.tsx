@@ -29,7 +29,10 @@ export default function ItemizedRow({ product }: Props) {
 
             if (
               product.attribute === "mineral_water" ||
-              product.attribute === "minute_maid"
+              product.attribute === "minute_maid" ||
+              product.attribute === "coke" ||
+              product.attribute === "royal" ||
+              product.attribute === "sprite"
             ) {
               setInventory({
                 ...inventory,

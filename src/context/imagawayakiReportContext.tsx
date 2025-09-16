@@ -49,6 +49,9 @@ const initialSales: ImagawayakiSales = {
   juice: 0,
   mineral_water: 0,
   minute_maid: 0,
+  coke: 0,
+  royal: 0,
+  sprite: 0,
 };
 
 const defaultInventoryItem = {
@@ -68,6 +71,9 @@ const initialInventory: IImagawayakiReportInventory = {
   custard: defaultInventoryItem,
   minute_maid: defaultInventoryItem,
   mineral_water: defaultInventoryItem,
+  coke: defaultInventoryItem,
+  royal: defaultInventoryItem,
+  sprite: defaultInventoryItem,
   cups: defaultInventoryItem,
   straws: defaultInventoryItem,
   blue_lemon: defaultInventoryItem,
@@ -83,37 +89,26 @@ const initialInventory: IImagawayakiReportInventory = {
   plastic_bag: defaultInventoryItem,
 };
 
-function assignNewInventoryItems(inventory: IImagawayakiReportInventory) {
-  const newInventory: {
-    [key: string]: {
-      initial_stocks: string | number;
-      delivered: string | number;
-      pull_out: string | number;
-      sales: string | number;
-      remaining_stocks: string | number;
-      notes: string;
-    };
-  } = {};
+function assignNewInventoryItems(prevInventory: IImagawayakiReportInventory) {
+  const newInventory: IImagawayakiReportInventory = {};
 
-  for (let item in inventory) {
+  for (const item in initialInventory) {
+    const prev = prevInventory[item]; // yesterday’s data if it exists
     newInventory[item] = {
-      initial_stocks: inventory[item].remaining_stocks,
+      initial_stocks: prev ? prev.remaining_stocks : 0,
       delivered: 0,
       pull_out: 0,
       sales: 0,
-      remaining_stocks: inventory[item].remaining_stocks,
-      notes: "",
+      remaining_stocks: prev ? prev.remaining_stocks : 0,
+      notes: "", // reset notes each day
     };
   }
 
-  const sortedInventory = Object.fromEntries(
-    IMAGAWAYAKI_INVENTORY_DISPLAY_ORDER.map((key) => [
-      key,
-      newInventory[key],
-    ]).filter(([_, val]) => val)
+  return Object.fromEntries(
+    IMAGAWAYAKI_INVENTORY_DISPLAY_ORDER
+      .map((key) => [key, newInventory[key]])
+      .filter(([, val]) => val !== undefined)
   );
-
-  return sortedInventory;
 }
 
 const ImagawayakiReportContextProvider = ({
@@ -151,7 +146,10 @@ const ImagawayakiReportContextProvider = ({
     sales.plain * IMAGAWAYAKI_PRODUCTS.PLAIN.price +
     sales.juice * IMAGAWAYAKI_PRODUCTS.JUICE.price +
     sales.mineral_water * IMAGAWAYAKI_PRODUCTS.MINERAL_WATER.price +
-    sales.minute_maid * IMAGAWAYAKI_PRODUCTS.MINUTE_MAID.price;
+    sales.minute_maid * IMAGAWAYAKI_PRODUCTS.MINUTE_MAID.price +
+    sales.coke * IMAGAWAYAKI_PRODUCTS.COKE.price +
+    sales.royal * IMAGAWAYAKI_PRODUCTS.ROYAL.price +
+    sales.sprite * IMAGAWAYAKI_PRODUCTS.SPRITE.price;
 
   const totalExpenses = expenses.reduce(
     (partialSum, expense) => partialSum + (expense.value || 0),
