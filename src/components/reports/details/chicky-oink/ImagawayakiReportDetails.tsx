@@ -21,7 +21,10 @@ function getTotalSales(sales: ImagawayakiSales) {
     sales.plain * IMAGAWAYAKI_PRODUCTS.PLAIN.price +
     sales.juice * IMAGAWAYAKI_PRODUCTS.JUICE.price +
     sales.mineral_water * IMAGAWAYAKI_PRODUCTS.MINERAL_WATER.price +
-    sales.minute_maid * IMAGAWAYAKI_PRODUCTS.MINUTE_MAID.price;
+    sales.minute_maid * IMAGAWAYAKI_PRODUCTS.MINUTE_MAID.price +
+    sales.coke * IMAGAWAYAKI_PRODUCTS.COKE.price +
+    sales.royal * IMAGAWAYAKI_PRODUCTS.ROYAL.price +
+    sales.sprite * IMAGAWAYAKI_PRODUCTS.SPRITE.price;
 
   return totalSales;
 }

@@ -22,7 +22,10 @@ function getTotalSales(sales: ChickyOinkSales) {
     sales.spicy_liog * CHICKY_OINK_PRODUCTS.SPICY_LIOG.price +
     sales.poso * CHICKY_OINK_PRODUCTS.POSO.price +
     sales.atchara_small * CHICKY_OINK_PRODUCTS.ATCHARA_SMALL.price +
-    sales.atchara_big * CHICKY_OINK_PRODUCTS.ATCHARA_BIG.price;
+    sales.atchara_big * CHICKY_OINK_PRODUCTS.ATCHARA_BIG.price +
+    sales.coke * CHICKY_OINK_PRODUCTS.COKE.price +
+    sales.sprite * CHICKY_OINK_PRODUCTS.SPRITE.price +
+    sales.royal * CHICKY_OINK_PRODUCTS.ROYAL.price;
 
   return totalSales;
 }
