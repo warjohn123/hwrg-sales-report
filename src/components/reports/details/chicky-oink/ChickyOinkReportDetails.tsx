@@ -23,10 +23,10 @@ function getTotalSales(sales: ChickyOinkSales) {
     sales.poso * CHICKY_OINK_PRODUCTS.POSO.price +
     sales.atchara_small * CHICKY_OINK_PRODUCTS.ATCHARA_SMALL.price +
     sales.atchara_big * CHICKY_OINK_PRODUCTS.ATCHARA_BIG.price +
-    sales.coke * CHICKY_OINK_PRODUCTS.COKE.price +
-    sales.sprite * CHICKY_OINK_PRODUCTS.SPRITE.price +
-    sales.royal * CHICKY_OINK_PRODUCTS.ROYAL.price +
-    sales.mineral_water * CHICKY_OINK_PRODUCTS.MINERAL_WATER.price;
+    (sales.coke ? sales.coke * CHICKY_OINK_PRODUCTS.COKE.price : 0) +
+    (sales.sprite ? sales.sprite * CHICKY_OINK_PRODUCTS.SPRITE.price : 0) +
+    (sales.royal ? sales.royal * CHICKY_OINK_PRODUCTS.ROYAL.price : 0) +
+    (sales.mineral_water ? sales.mineral_water * CHICKY_OINK_PRODUCTS.MINERAL_WATER.price : 0);
 
   return totalSales;
 }
@@ -58,7 +58,7 @@ export default function ChickyOinkReportDetails({ report }: Props) {
             <div className="flex flex-row gap-3" key={key}>
               <div className="w-30">{CHICKY_OINK_PRODUCTS[key].name}</div>
               <div className="font-bold w-10">
-                {report.sales[key.toLowerCase() as keyof ChickyOinkSales]}
+                {report.sales[key.toLowerCase() as keyof ChickyOinkSales] ?? 0}
               </div>
               <div>X</div>
               <div className="w-10">{CHICKY_OINK_PRODUCTS[key].price}</div>
