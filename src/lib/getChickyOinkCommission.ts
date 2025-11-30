@@ -1,6 +1,6 @@
-export const CHICKY_OINK_BASE_SALES = 29000;
-export const CHICKY_OINK_MAX_SALES = 198999;
-export const CHICKY_OINK_STEP = 5000;
+export const CHICKY_OINK_BASE_SALES = 31000;
+export const CHICKY_OINK_MAX_SALES = 200000;
+export const CHICKY_OINK_STEP = 6000;
 export const CHICKY_OINK_BASE_COMMISSION = 100;
 
 export function getChickyOinkCommission(totalSales: number) {
