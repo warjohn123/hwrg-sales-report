@@ -7,15 +7,9 @@ export function computeRemainingEggs(
   start: HWRGEggsInventoryType,
   sales: number
 ) {
-  console.log("start", start, "sales", sales);
   const totalStartPcs = start.trays * TRAY_SIZE + start.pcs;
 
   const remainingPcs = Math.max(totalStartPcs - sales, 0);
-
-  console.log("compute result", {
-    trays: Math.floor(remainingPcs / TRAY_SIZE),
-    pcs: remainingPcs % TRAY_SIZE,
-  });
 
   return {
     trays: Math.floor(remainingPcs / TRAY_SIZE),

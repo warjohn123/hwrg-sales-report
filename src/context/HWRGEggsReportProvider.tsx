@@ -7,8 +7,8 @@ import type {
 } from "../@types/HWRGEggsReport";
 import { HWRGEggsReportContext } from "./hwrgEggsReportContext";
 import type { IExpense } from "../@types/SalesReport";
-import { IMAGAWAYAKI_INVENTORY_DISPLAY_ORDER } from "../components/reports/create/imagawayaki/displayOrder";
 import { HWRG_EGGS_PRODUCTS } from "../constants/HWRGEggsProduct";
+import { HWRG_EGGS_INVENTORY_DISPLAY_ORDER } from "../components/reports/create/hwrg-eggs/displayOrder";
 
 const initialSales: IHWRGEggsSales = {
   pl: {
@@ -91,7 +91,7 @@ function assignNewInventoryItems(prevInventory: IHWRGEggsReportInventory) {
   }
 
   return Object.fromEntries(
-    IMAGAWAYAKI_INVENTORY_DISPLAY_ORDER.map((key) => [
+    HWRG_EGGS_INVENTORY_DISPLAY_ORDER.map((key) => [
       key,
       newInventory[key],
     ]).filter(([, val]) => val !== undefined)

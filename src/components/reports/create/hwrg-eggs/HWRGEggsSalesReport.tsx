@@ -5,6 +5,7 @@ import {
 } from "../../../../context/hwrgEggsReportContext";
 import ItemizedRow from "./ItemizedRow";
 import { HWRG_EGGS_PRODUCTS } from "../../../../constants/HWRGEggsProduct";
+import Divider from "../../../UI/Divider";
 
 export default function HWRGEggsSalesReport() {
   const { totalSales, selectedBranch } = useContext(
@@ -19,7 +20,10 @@ export default function HWRGEggsSalesReport() {
 
       <div className="mt-5 flex flex-col gap-3 space-y-4">
         {Object.entries(HWRG_EGGS_PRODUCTS).map(([key]) => (
-          <ItemizedRow key={key} product={HWRG_EGGS_PRODUCTS[key]} />
+          <>
+            <ItemizedRow key={key} product={HWRG_EGGS_PRODUCTS[key]} />
+            <Divider />
+          </>
         ))}
       </div>
 

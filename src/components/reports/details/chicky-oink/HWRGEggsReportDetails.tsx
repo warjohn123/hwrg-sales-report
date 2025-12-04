@@ -5,6 +5,7 @@ import type {
 } from "../../../../@types/HWRGEggsReport";
 import { HWRG_EGGS_PRODUCTS } from "../../../../constants/HWRGEggsProduct";
 import Button from "../../../UI/Button";
+import { HWRG_EGGS_INVENTORY_DISPLAY_ORDER } from "../../create/hwrg-eggs/displayOrder";
 
 interface Props {
   report: IHWRGEggsReport;
@@ -208,56 +209,62 @@ export default function HWRGEggsReportDetails({ report }: Props) {
               </tr>
             </thead>
             <tbody>
-              {Object.keys(report.inventory).map((key: string) => (
-                <tr key={key}>
-                  <td className="sticky left-0 bg-white z-10 border px-4 py-2">
-                    {key.replace("_", " ").toUpperCase()}
-                  </td>
-                  <td className="border px-4 py-2">
-                    <div>
-                      PCS:
-                      {report.inventory[key].initial_stocks.pcs}
-                    </div>
-                    <div>
-                      TRAYS:
-                      {report.inventory[key].initial_stocks.trays}
-                    </div>
-                  </td>
-                  <td className="border px-4 py-2 w-30">
-                    {report.inventory[key].delivered.trays}
-                  </td>
-                  <td className="border px-4 py-2">
-                    {report.inventory[key].pull_out.trays}
-                  </td>
-                  <td className="border px-4 py-2">
-                    <div>
-                      PCS:
-                      {report.inventory[key].sales.pcs}
-                    </div>
-                    <div>
-                      DOZENS:
-                      {report.inventory[key].sales.dozens}
-                    </div>
-                    <div>
-                      TRAYS:
-                      {report.inventory[key].initial_stocks.trays}
-                    </div>
-                  </td>
-                  <td className="border px-4 py-2">
-                    <div>
-                      PCS:
-                      {report.inventory[key].remaining_stocks.pcs}
-                    </div>
-                    <div>
-                      TRAYS:
-                      {report.inventory[key].remaining_stocks.trays}
-                    </div>
-                  </td>
-                  <td className="border px-4 py-2">
-                    {report.inventory[key].notes}
-                  </td>
-                </tr>
-              ))}
+              {Object.keys(report.inventory)
+                .sort(
+                  (a, b) =>
+                    HWRG_EGGS_INVENTORY_DISPLAY_ORDER.indexOf(a) -
+                    HWRG_EGGS_INVENTORY_DISPLAY_ORDER.indexOf(b)
+                )
+                .map((key: string) => (
+                  <tr key={key}>
+                    <td className="sticky left-0 bg-white z-10 border px-4 py-2">
+                      {key.replace("_", " ").toUpperCase()}
+                    </td>
+                    <td className="border px-4 py-2">
+                      <div>
+                        TRAYS:
+                        {report.inventory[key].initial_stocks.trays}
+                      </div>
+                      <div>
+                        PCS:
+                        {report.inventory[key].initial_stocks.pcs}
+                      </div>
+                    </td>
+                    <td className="border px-4 py-2 w-30">
+                      {report.inventory[key].delivered.trays}
+                    </td>
+                    <td className="border px-4 py-2">
+                      {report.inventory[key].pull_out.trays}
+                    </td>
+                    <td className="border px-4 py-2">
+                      <div>
+                        TRAYS:
+                        {report.inventory[key].initial_stocks.trays}
+                      </div>
+                      <div>
+                        DOZENS:
+                        {report.inventory[key].sales.dozens}
+                      </div>
+                      <div>
+                        PCS:
+                        {report.inventory[key].sales.pcs}
+                      </div>
+                    </td>
+                    <td className="border px-4 py-2">
+                      <div>
+                        TRAYS:
+                        {report.inventory[key].remaining_stocks.trays}
+                      </div>
+                      <div>
+                        PCS:
+                        {report.inventory[key].remaining_stocks.pcs}
+                      </div>
+                    </td>
+                    <td className="border px-4 py-2">
+                      {report.inventory[key].notes}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
