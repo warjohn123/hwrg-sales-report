@@ -20,7 +20,7 @@ export default function ImagawayakiExpenses() {
     setExpenses([...expenses, { name: "", value: 0 }]);
   };
 
-  if (!!!selectedBranch) return <></>;
+  if (!selectedBranch) return <></>;
 
   return (
     <div className="mt-5 mb-5">

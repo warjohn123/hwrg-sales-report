@@ -1,46 +1,50 @@
-import { useContext, useEffect, useState } from "react";
-import { type IBranchAssignment } from "../../../../@types/BranchAssignment";
-import { useCurrentUser } from "../../../../hooks/useCurrentUser";
-import { getBranchAssignmentsByUserId } from "../../../../services/branch-assignment.service";
-import {
-  ChickyOinkReportContext,
-  type ChickyOinkReportContextType,
-} from "../../../../context/chickyReportContext";
+import { useEffect, useState } from "react";
+// import { type IBranchAssignment } from "../../../../@types/BranchAssignment";
+// import { useCurrentUser } from "../../../../hooks/useCurrentUser";
+// import { getBranchAssignmentsByUserId } from "../../../../services/branch-assignment.service";
 import { toast } from "react-toastify";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
+import type { IBranchAssignment } from "../../../@types/BranchAssignment";
+import { getBranchAssignmentsByUserId } from "../../../services/branch-assignment.service";
 
-export default function ChickyOinkSelectBranch() {
+interface BranchSelectorProps {
+  selectedBranch: IBranchAssignment | undefined;
+  setSelectedBranch: (branch: IBranchAssignment | undefined) => void;
+}
+
+export default function BranchSelector({
+  selectedBranch,
+  setSelectedBranch,
+}: BranchSelectorProps) {
   const user = useCurrentUser();
   const [branchAssignments, setBranchAssignments] = useState<
     IBranchAssignment[]
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { selectedBranch, setSelectedBranch } = useContext(
-    ChickyOinkReportContext
-  ) as ChickyOinkReportContextType;
   const [hasAssignments, setHasAssignments] = useState<boolean>(true);
 
-  const fetchBranches = async () => {
-    try {
-      const res = await getBranchAssignmentsByUserId(user!.id);
-
-      if (!res.length) {
-        setHasAssignments(false);
-      }
-
-      setBranchAssignments(res);
-      setSelectedBranch(res[0]);
-      setIsLoading(false);
-    } catch (e) {
-      toast.error("Something went wrong. Please contact Warren.");
-      console.error(e);
-    }
-  };
-
   useEffect(() => {
+    const fetchBranches = async () => {
+      try {
+        const res = await getBranchAssignmentsByUserId(user!.id);
+
+        if (!res.length) {
+          setHasAssignments(false);
+        }
+
+        setBranchAssignments(res);
+        setSelectedBranch(res[0]);
+        setIsLoading(false);
+      } catch (e) {
+        toast.error("Something went wrong. Please contact Warren.");
+        console.error(e);
+      }
+    };
+
     if (user?.id) {
       fetchBranches();
     }
-  }, [user]);
+  }, [user, setSelectedBranch]);
 
   if (isLoading) return <>Loading branches...</>;
   if (!hasAssignments) return <>No assigned branch. Ask Warren for help.</>;

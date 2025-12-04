@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
-import { EMPLOYEE_ASSIGNMENT } from "../../../../@types/User";
 import { createSalesReport } from "../../../../services/reports.service";
 import Button from "../../../UI/Button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
-  PotatoFryReportContext,
-  type PotatoFryReportContextType,
-} from "../../../../context/potatoFryContext";
+  HWRGEggsReportContext,
+  type HWRGEggsReportContextType,
+} from "../../../../context/hwrgEggsReportContext";
+import { IAssignment } from "../../../../enums/Assignment";
 
-export default function PotatoFrySubmitReportBtn() {
+export default function HWRGEggsSubmitReportBtn() {
   const {
     cash,
     cashFund,
@@ -19,7 +19,7 @@ export default function PotatoFrySubmitReportBtn() {
     expenses,
     onDuty,
     preparedBy,
-  } = useContext(PotatoFryReportContext) as PotatoFryReportContextType;
+  } = useContext(HWRGEggsReportContext) as HWRGEggsReportContextType;
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ export default function PotatoFrySubmitReportBtn() {
           hour12: true,
         })}`,
         report_date: new Date().toISOString(),
-        type: EMPLOYEE_ASSIGNMENT.POTATO_FRY,
+        type: IAssignment.HWRG_EGGS,
         branch_id: selectedBranch?.branch_id ?? 0,
         user_id: selectedBranch?.user_id ?? "",
         cash,

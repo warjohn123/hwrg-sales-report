@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import type { IBranchAssignment } from "../../../../@types/BranchAssignment";
-import type { IImagawayakiReport } from "../../../../@types/ImagawayakiReport";
 import { getLastReportByBranchId } from "../../../../services/reports.service";
 import { toast } from "react-toastify";
+import type { IHWRGEggsReport } from "../../../../@types/HWRGEggsReport";
+import HWRGEggsReportContextProvider from "../../../../context/HWRGEggsReportProvider";
 import Divider from "../../../UI/Divider";
-import ImagawayakiSalesReport from "./ImagawayakiSalesReport";
-import ImagawayakiExpenses from "./ImagawayakiExpenses";
-import ImagawayakiSummary from "./ImagawayakiSummary";
-import ImagawayakiSubmitReportBtn from "./ImagawayakiSubmitReportBtn";
-import ImagawayakiInventoryTable from "./ImagawayakiInventoryTable";
-import ImagawayakiReportContextProvider from "../../../../context/ImagawayakiReportProvider";
+import HWRGEggsSalesReport from "./HWRGEggsSalesReport";
+import HWRGEggsExpenses from "./HWRGEggsExpenses";
+import HWRGEggsSummary from "./HWRGEggsSummary";
+import HWRGEggsInventoryTable from "./HWRGEggsInventoryTable";
+import HWRGEggsSubmitReportBtn from "./HWRGEggsSubmitReportBtn";
 
-interface ImagawayakiReportProps {
+interface HWRGEggsReportProps {
   selectedBranch: IBranchAssignment | undefined;
   setSelectedBranch: (branch: IBranchAssignment | undefined) => void;
 }
 
-export default function ImagawayakiReport({
+export default function HWRGEggsReport({
   selectedBranch,
   setSelectedBranch,
-}: ImagawayakiReportProps) {
-  const [report, setReport] = useState<IImagawayakiReport>();
+}: HWRGEggsReportProps) {
+  const [report, setReport] = useState<IHWRGEggsReport>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function ImagawayakiReport({
   }, [selectedBranch]);
 
   return (
-    <ImagawayakiReportContextProvider
+    <HWRGEggsReportContextProvider
       report={report}
       selectedBranch={selectedBranch}
       setSelectedBranch={setSelectedBranch}
@@ -52,16 +52,16 @@ export default function ImagawayakiReport({
         <div>Loading last report...</div>
       ) : (
         <>
-          <ImagawayakiSalesReport />
+          <HWRGEggsSalesReport />
           <Divider />
-          <ImagawayakiExpenses />
+          <HWRGEggsExpenses />
           <Divider />
-          <ImagawayakiSummary />
+          <HWRGEggsSummary />
           <Divider />
-          <ImagawayakiInventoryTable />
-          <ImagawayakiSubmitReportBtn />
+          <HWRGEggsInventoryTable />
+          <HWRGEggsSubmitReportBtn />
         </>
       )}
-    </ImagawayakiReportContextProvider>
+    </HWRGEggsReportContextProvider>
   );
 }

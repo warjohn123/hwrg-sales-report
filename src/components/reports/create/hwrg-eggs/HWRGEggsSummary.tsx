@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import {
-  ImagawayakiReportContext,
-  type ImagawayakiReportContextType,
-} from "../../../../context/imagawayakiReportContext";
+  HWRGEggsReportContext,
+  type HWRGEggsReportContextType,
+} from "../../../../context/hwrgEggsReportContext";
 
-export default function ImagawayakiSummary() {
+export default function HWRGEggsSummary() {
   const {
     setCash,
     setCashFund,
@@ -15,7 +15,7 @@ export default function ImagawayakiSummary() {
     totalExpenses,
     cash,
     cashFund,
-  } = useContext(ImagawayakiReportContext) as ImagawayakiReportContextType;
+  } = useContext(HWRGEggsReportContext) as HWRGEggsReportContextType;
 
   const totalRemit = totalSales - totalExpenses;
 

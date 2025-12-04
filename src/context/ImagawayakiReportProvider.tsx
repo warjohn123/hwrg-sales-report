@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { IBranchAssignment } from "../@types/BranchAssignment";
 import type { IImagawayakiReport } from "../@types/ImagawayakiReport";
 import type {
@@ -8,30 +8,7 @@ import type {
 import type { IExpense } from "../@types/SalesReport";
 import { IMAGAWAYAKI_INVENTORY_DISPLAY_ORDER } from "../components/reports/create/imagawayaki/displayOrder";
 import { IMAGAWAYAKI_PRODUCTS } from "../constants/ImagawayakiProduct";
-
-export interface ImagawayakiReportContextType {
-  sales: ImagawayakiSales;
-  inventory: IImagawayakiReportInventory;
-  expenses: IExpense[];
-  cash: number;
-  cashFund: number;
-  preparedBy: string;
-  totalSales: number;
-  totalExpenses: number;
-  onDuty: string;
-  selectedBranch: IBranchAssignment | undefined;
-  setSelectedBranch: (val: IBranchAssignment | undefined) => void;
-  setSales: (val: ImagawayakiSales) => void;
-  setInventory: (val: IImagawayakiReportInventory) => void;
-  setExpenses: React.Dispatch<React.SetStateAction<IExpense[]>>;
-  setCash: (val: number) => void;
-  setCashFund: (val: number) => void;
-  setPreparedBy: (val: string) => void;
-  setOnDuty: (val: string) => void;
-}
-
-export const ImagawayakiReportContext =
-  createContext<ImagawayakiReportContextType | null>(null);
+import { ImagawayakiReportContext } from "./imagawayakiReportContext";
 
 interface ReportContextProviderProps {
   children: React.ReactNode;
@@ -105,9 +82,10 @@ function assignNewInventoryItems(prevInventory: IImagawayakiReportInventory) {
   }
 
   return Object.fromEntries(
-    IMAGAWAYAKI_INVENTORY_DISPLAY_ORDER
-      .map((key) => [key, newInventory[key]])
-      .filter(([, val]) => val !== undefined)
+    IMAGAWAYAKI_INVENTORY_DISPLAY_ORDER.map((key) => [
+      key,
+      newInventory[key],
+    ]).filter(([, val]) => val !== undefined)
   );
 }
 

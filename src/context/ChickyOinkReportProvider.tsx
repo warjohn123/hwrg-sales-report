@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type {
   ChickyOinkSales,
   IChickyOinkReport,
@@ -8,30 +8,7 @@ import type { IExpense } from "../@types/SalesReport";
 import { CHICKY_OINK_PRODUCTS } from "../constants/ChickyOinkProduct";
 import type { IBranchAssignment } from "../@types/BranchAssignment";
 import { CHICKY_OINK_DISPLAY_ORDER } from "../components/reports/create/chicky-oink/displayOrder";
-
-export interface ChickyOinkReportContextType {
-  sales: ChickyOinkSales;
-  inventory: IChickyOinkReportInventory;
-  expenses: IExpense[];
-  cash: number;
-  cashFund: number;
-  preparedBy: string;
-  totalSales: number;
-  totalExpenses: number;
-  onDuty: string;
-  selectedBranch: IBranchAssignment | undefined;
-  setSelectedBranch: (val: IBranchAssignment | undefined) => void;
-  setSales: (val: ChickyOinkSales) => void;
-  setInventory: (val: IChickyOinkReportInventory) => void;
-  setExpenses: React.Dispatch<React.SetStateAction<IExpense[]>>;
-  setCash: (val: number) => void;
-  setCashFund: (val: number) => void;
-  setPreparedBy: (val: string) => void;
-  setOnDuty: (val: string) => void;
-}
-
-export const ChickyOinkReportContext =
-  createContext<ChickyOinkReportContextType | null>(null);
+import { ChickyOinkReportContext } from "./chickyReportContext";
 
 interface ReportContextProviderProps {
   children: React.ReactNode;
@@ -54,7 +31,7 @@ const initialSales: ChickyOinkSales = {
   coke: 0,
   sprite: 0,
   royal: 0,
-  mineral_water: 0
+  mineral_water: 0,
 };
 
 const defaultInventoryItem = {
@@ -70,7 +47,7 @@ function assignNewInventoryItems(prevInventory: IChickyOinkReportInventory) {
   const newInventory: IChickyOinkReportInventory = {};
 
   for (const item in initialInventory) {
-    const prev = prevInventory[item]; 
+    const prev = prevInventory[item];
     if (item === "poso") {
       newInventory[item] = defaultInventoryItem;
     } else {

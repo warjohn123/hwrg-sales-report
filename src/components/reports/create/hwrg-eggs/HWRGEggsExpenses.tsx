@@ -1,15 +1,15 @@
 import { useContext } from "react";
+import {
+  HWRGEggsReportContext,
+  type HWRGEggsReportContextType,
+} from "../../../../context/hwrgEggsReportContext";
 import Button from "../../../UI/Button";
 import ExpenseRow from "./ExpenseRow";
-import {
-  PotatoFryReportContext,
-  type PotatoFryReportContextType,
-} from "../../../../context/potatoFryContext";
 
-export default function PotatoFryExpenses() {
+export default function HWRGEggsExpenses() {
   const { setExpenses, expenses, selectedBranch } = useContext(
-    PotatoFryReportContext
-  ) as PotatoFryReportContextType;
+    HWRGEggsReportContext
+  ) as HWRGEggsReportContextType;
 
   const totalExpenses = expenses.reduce(
     (partialSum, a) => partialSum + (a.value || 0),
@@ -19,6 +19,28 @@ export default function PotatoFryExpenses() {
   const onAddExpense = () => {
     setExpenses([...expenses, { name: "", value: 0 }]);
   };
+
+  //TODO ADD COMMISION LOGIC IN THE FUTURE
+  //   useEffect(() => {
+  //     if (totalSales > CHICKY_OINK_BASE_SALES) {
+  //       const newCommission = {
+  //         name: "Commission",
+  //         value: getChickyOinkCommission(totalSales),
+  //       };
+
+  //       setExpenses((prevExpenses) => {
+  //         const filtered = prevExpenses.filter(
+  //           (expense) => expense.name !== "Commission"
+  //         );
+  //         return [...filtered, newCommission];
+  //       });
+  //     } else {
+  //       // Remove commission if sales are below the base
+  //       setExpenses((prevExpenses) =>
+  //         prevExpenses.filter((expense) => expense.name !== "Commission")
+  //       );
+  //     }
+  //   }, [totalSales]);
 
   if (!selectedBranch) return <></>;
 

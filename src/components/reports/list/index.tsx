@@ -9,18 +9,22 @@ import {
 import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import Pagination from "../../Pagination";
 import { usePagination } from "../../../hooks/usePagination";
-import { fetchUserDetails } from "../../../services/user.service";
 import { USER_TYPE, type IUser } from "../../../@types/User";
 import DatePicker, {
   DateObject,
   type DatePickerRef,
 } from "react-multi-date-picker";
 
-export default function ChickyOinkReportsList() {
+interface ChickyOinkReportsListProps {
+  currentUser: IUser;
+}
+
+export default function ChickyOinkReportsList({
+  currentUser,
+}: ChickyOinkReportsListProps) {
   const [reports, setReports] = useState<SalesReport[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { page, setPage, totalPages, setTotal, pageSize } = usePagination();
-  const [currentUser, setCurrentUser] = useState<IUser | null>(null);
   const user = useCurrentUser();
   const datePickerRef = useRef<DatePickerRef>(null);
   const [dates, setDates] = useState([
@@ -28,44 +32,40 @@ export default function ChickyOinkReportsList() {
     new DateObject(),
   ]);
 
-  const fetchEmployeeReports = async (pageNumber = 1) => {
-    if (!user?.id) return;
-    setIsLoading(true);
-    const formattedDates = dates.map((date) => date.format("YYYY-MM-DD"));
-    const userData = await fetchUserDetails(user.id);
-    setCurrentUser(userData ?? null);
-
-    const isEmployee = userData?.type === USER_TYPE.EMPLOYEE;
-
-    try {
-      const res = isEmployee
-        ? await getReportsByUserId(
-            user?.id ?? "",
-            pageNumber,
-            pageSize,
-            formattedDates
-          )
-        : await fetchSalesReports(pageNumber, pageSize, "", formattedDates);
-
-      setTotal(res.total);
-      setReports(res.sales_reports);
-    } catch (e) {
-      toast.error(
-        "Something went wrong fetching reports. Please contact Warren."
-      );
-      console.error(e);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchEmployeeReports = async (pageNumber = 1) => {
+      if (!user?.id) return;
+      setIsLoading(true);
+      const formattedDates = dates.map((date) => date.format("YYYY-MM-DD"));
+
+      const isEmployee = currentUser?.type === USER_TYPE.EMPLOYEE;
+
+      try {
+        const res = isEmployee
+          ? await getReportsByUserId(
+              user?.id ?? "",
+              pageNumber,
+              pageSize,
+              formattedDates
+            )
+          : await fetchSalesReports(pageNumber, pageSize, "", formattedDates);
+
+        setTotal(res.total);
+        setReports(res.sales_reports);
+      } catch (e) {
+        toast.error(
+          "Something went wrong fetching reports. Please contact Warren."
+        );
+        console.error(e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     if (!user?.id) return;
     if (dates.length === 2) fetchEmployeeReports(page);
-  }, [page, user, dates]);
+  }, [page, user, dates, currentUser.type, pageSize, setTotal]);
 
   if (isLoading) return <>Loading reports...</>;
-  if (!currentUser) return <>No user found. Contact Warren to get access.</>;
 
   return (
     <div>

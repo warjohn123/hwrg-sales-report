@@ -19,7 +19,7 @@ export default function PotatoFrySummary() {
 
   const totalRemit = totalSales - totalExpenses;
 
-  if (!!!selectedBranch) return <></>;
+  if (!selectedBranch) return <></>;
 
   return (
     <div>

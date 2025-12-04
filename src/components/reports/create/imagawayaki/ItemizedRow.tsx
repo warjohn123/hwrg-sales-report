@@ -61,18 +61,6 @@ export default function ItemizedRow({ product }: Props) {
                 },
               });
             }
-
-            // setInventory({
-            //   ...inventory,
-            //   [product.attribute]: {
-            //     ...inventory[product.attribute],
-            //     sales: inputValue,
-            //     // remaining_stocks:
-            //     //   inventory[inventoryItem.attribute].delivered +
-            //     //   inventory[inventoryItem.attribute].initial_stocks -
-            //     //   (inputValue + inventory[inventoryItem.attribute].pull_out),
-            //   },
-            // });
           }}
         />
       </span>

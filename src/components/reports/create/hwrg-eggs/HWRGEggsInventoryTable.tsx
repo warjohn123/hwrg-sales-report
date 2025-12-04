@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import {
-  PotatoFryReportContext,
-  type PotatoFryReportContextType,
-} from "../../../../context/potatoFryContext";
+  HWRGEggsReportContext,
+  type HWRGEggsReportContextType,
+} from "../../../../context/hwrgEggsReportContext";
+import { computeRemainingEggs } from "../../../../lib/computeRemainingStocksOnEggs";
 
-export default function PotatoFryInventoryTable() {
+export default function HWRGEggsInventoryTable() {
   const { inventory, selectedBranch, setInventory } = useContext(
-    PotatoFryReportContext
-  ) as PotatoFryReportContextType;
+    HWRGEggsReportContext
+  ) as HWRGEggsReportContextType;
 
   if (!selectedBranch) return <></>;
 
@@ -20,11 +21,11 @@ export default function PotatoFryInventoryTable() {
               <th className="sticky left-0 bg-white z-10 border w-40 py-2">
                 Item
               </th>
-              <th className="border w-30 py-2">Initial Stocks (grams)</th>
-              <th className="border w-20 py-2">Delivered (grams)</th>
-              <th className="border w-30 py-2">Pull-Out (grams)</th>
-              <th className="border w-30 py-2">Sales (grams)</th>
-              <th className="border w-30 py-2">Remaining Stocks (grams)</th>
+              <th className="border w-30 py-2">Initial Stocks</th>
+              <th className="border w-20 py-2">Delivered (Trays)</th>
+              <th className="border w-30 py-2">Pull-Out (Trays)</th>
+              <th className="border w-30 py-2">Sales</th>
+              <th className="border w-30 py-2">Remaining Stocks</th>
               <th className="border px-4 py-2">Notes</th>
             </tr>
           </thead>
@@ -35,27 +36,39 @@ export default function PotatoFryInventoryTable() {
                   {key.replace("_", " ").toUpperCase()}
                 </td>
                 <td className="border px-4 py-2">
-                  {inventory[key].initial_stocks}
+                  <div>
+                    Trays:
+                    {inventory[key].initial_stocks.trays}
+                  </div>
+                  <div>
+                    Pcs:
+                    {inventory[key].initial_stocks.pcs}
+                  </div>
                 </td>
                 <td className="border px-4 py-2 w-30">
                   <input
                     type="number"
                     className="w-25 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={inventory[key].delivered}
+                    value={inventory[key].delivered.trays}
                     onChange={(e) => {
-                      const value = e.target.value
+                      const inputValue = e.target.value
                         ? parseFloat(e.target.value)
                         : 0;
                       setInventory({
                         ...inventory,
                         [key]: {
                           ...inventory[key],
-                          delivered: value,
-                          remaining_stocks:
-                            Number(inventory[key].initial_stocks) +
-                            Number(value) -
-                            (Number(inventory[key].sales) +
-                              Number(inventory[key].pull_out)),
+                          delivered: { trays: inputValue },
+                          remaining_stocks: computeRemainingEggs(
+                            {
+                              trays:
+                                inventory[key].initial_stocks.trays +
+                                inputValue -
+                                inventory[key].pull_out.trays,
+                              pcs: inventory[key].initial_stocks.pcs,
+                            },
+                            0
+                          ),
                         },
                       });
                     }}
@@ -65,55 +78,39 @@ export default function PotatoFryInventoryTable() {
                   <input
                     type="number"
                     className="w-25 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={inventory[key].pull_out}
+                    value={inventory[key].pull_out.trays}
                     onChange={(e) => {
-                      const value = e.target.value
+                      const inputValue = e.target.value
                         ? parseFloat(e.target.value)
                         : 0;
                       setInventory({
                         ...inventory,
                         [key]: {
                           ...inventory[key],
-                          pull_out: value,
-                          remaining_stocks:
-                            Number(inventory[key].initial_stocks) +
-                            Number(inventory[key].delivered) -
-                            (Number(value) + Number(inventory[key].sales)),
+                          pull_out: { trays: inputValue },
+                          remaining_stocks: computeRemainingEggs(
+                            {
+                              trays:
+                                inventory[key].initial_stocks.trays +
+                                inventory[key].delivered.trays -
+                                inputValue,
+                              pcs: inventory[key].initial_stocks.pcs,
+                            },
+                            0
+                          ),
                         },
                       });
                     }}
                   />
                 </td>
                 <td className="border px-4 py-2">
-                  <input
-                    type="number"
-                    className="w-25 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={inventory[key].sales}
-                    onChange={(e) => {
-                      const value = e.target.value
-                        ? parseFloat(e.target.value)
-                        : 0;
-                      setInventory({
-                        ...inventory,
-                        [key]: {
-                          ...inventory[key],
-                          sales: value,
-                          remaining_stocks:
-                            Number(inventory[key].initial_stocks) +
-                            Number(inventory[key].delivered) -
-                            (Number(inventory[key].pull_out) + Number(value)),
-                        },
-                      });
-                    }}
-                  />
+                  <div>Trays: {inventory[key].sales.trays}</div>
+                  <div>Dozens: {inventory[key].sales.dozens}</div>
+                  <div>Pcs: {inventory[key].sales.pcs}</div>
                 </td>
                 <td className="border px-4 py-2">
-                  <input
-                    type="number"
-                    className="w-25 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 border-0"
-                    value={inventory[key].remaining_stocks}
-                    disabled={true}
-                  />
+                  <div>Trays: {inventory[key].remaining_stocks.trays}</div>
+                  <div>Pcs: {inventory[key].remaining_stocks.pcs}</div>
                 </td>
                 <td className="border px-4 py-2">
                   {

@@ -45,7 +45,7 @@ export default function ChickyOinkExpenses() {
     }
   }, [totalSales]);
 
-  if (!!!selectedBranch) return <></>;
+  if (!selectedBranch) return <></>;
 
   return (
     <div className="mt-5 mb-5">
