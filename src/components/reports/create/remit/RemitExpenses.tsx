@@ -13,12 +13,16 @@ export default function RemitExpense() {
   ) as RemitReportContextType;
 
   function handleAddExpense() {
-    setExpenses([...expenses, { name: "", value: 0 }]);
+    setExpenses([
+      ...expenses,
+      { name: "", value: 0, branchId: 0, assignment: undefined },
+    ]);
   }
 
   function computeTotalExpenses() {
     return expenses.reduce((total, expense) => total + expense.value, 0);
   }
+
   return (
     <div>
       <h1 className="font-bold text-2xl">Expenses</h1>
