@@ -38,18 +38,18 @@ export default function HWRGEggsInventoryTable() {
                 <td className="border px-4 py-2">
                   <div>
                     Trays:
-                    {inventory[key].initial_stocks.trays}
+                    {inventory[key].initial_stocks?.trays}
                   </div>
                   <div>
                     Pcs:
-                    {inventory[key].initial_stocks.pcs}
+                    {inventory[key].initial_stocks?.pcs}
                   </div>
                 </td>
                 <td className="border px-4 py-2 w-30">
                   <input
                     type="number"
                     className="w-25 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={inventory[key].delivered.trays}
+                    value={inventory[key].delivered?.trays}
                     onChange={(e) => {
                       const inputValue = e.target.value
                         ? parseFloat(e.target.value)

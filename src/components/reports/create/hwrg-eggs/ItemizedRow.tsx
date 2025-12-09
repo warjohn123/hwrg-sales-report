@@ -31,7 +31,7 @@ export default function ItemizedRow({ product }: Props) {
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Quantity (trays)"
                 type="number"
-                value={sales[product.attribute].trays}
+                value={sales[product.attribute]?.trays}
                 onChange={(e) => {
                   const inputValue = e.target.value
                     ? parseFloat(e.target.value)
@@ -48,18 +48,18 @@ export default function ItemizedRow({ product }: Props) {
                     [product.attribute]: {
                       ...inventory[product.attribute],
                       sales: {
-                        ...inventory[product.attribute].sales,
+                        ...inventory[product.attribute]?.sales,
                         trays: inputValue,
                       },
                       remaining_stocks: computeRemainingEggs(
                         {
                           trays:
-                            inventory[product.attribute].initial_stocks.trays +
-                            inventory[product.attribute].delivered.trays,
-                          pcs: inventory[product.attribute].initial_stocks.pcs,
+                            inventory[product.attribute]?.initial_stocks.trays +
+                            inventory[product.attribute]?.delivered.trays,
+                          pcs: inventory[product.attribute]?.initial_stocks.pcs,
                         },
-                        inventory[product.attribute].sales.pcs +
-                          inventory[product.attribute].sales.dozens *
+                        inventory[product.attribute]?.sales.pcs +
+                          inventory[product.attribute]?.sales.dozens *
                             DOZEN_SIZE +
                           inputValue * TRAY_SIZE
                       ),
@@ -73,7 +73,7 @@ export default function ItemizedRow({ product }: Props) {
               <span className="font-bold">
                 ₱
                 {(
-                  (sales[product.attribute].trays ?? 0) * product.trayPrice!
+                  (sales[product.attribute]?.trays ?? 0) * product.trayPrice!
                 ).toLocaleString()}
               </span>
             </div>
@@ -85,7 +85,7 @@ export default function ItemizedRow({ product }: Props) {
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Quantity (dozens)"
                 type="number"
-                value={sales[product.attribute].dozens}
+                value={sales[product.attribute]?.dozens}
                 onChange={(e) => {
                   const inputValue = e.target.value
                     ? parseFloat(e.target.value)
@@ -102,19 +102,19 @@ export default function ItemizedRow({ product }: Props) {
                     [product.attribute]: {
                       ...inventory[product.attribute],
                       sales: {
-                        ...inventory[product.attribute].sales,
+                        ...inventory[product.attribute]?.sales,
                         dozens: inputValue,
                       },
                       remaining_stocks: computeRemainingEggs(
                         {
                           trays:
-                            inventory[product.attribute].initial_stocks.trays +
-                            inventory[product.attribute].delivered.trays,
-                          pcs: inventory[product.attribute].initial_stocks.pcs,
+                            inventory[product.attribute]?.initial_stocks.trays +
+                            inventory[product.attribute]?.delivered.trays,
+                          pcs: inventory[product.attribute]?.initial_stocks.pcs,
                         },
-                        inventory[product.attribute].sales.pcs +
+                        inventory[product.attribute]?.sales.pcs +
                           inputValue * DOZEN_SIZE +
-                          inventory[product.attribute].sales.trays * TRAY_SIZE
+                          inventory[product.attribute]?.sales.trays * TRAY_SIZE
                       ),
                     },
                   });
@@ -126,7 +126,7 @@ export default function ItemizedRow({ product }: Props) {
               <span className="font-bold">
                 ₱
                 {(
-                  (sales[product.attribute].dozens ?? 0) * product.dozenPrice!
+                  (sales[product.attribute]?.dozens ?? 0) * product.dozenPrice!
                 ).toLocaleString()}
               </span>
             </div>
@@ -139,7 +139,7 @@ export default function ItemizedRow({ product }: Props) {
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Quantity (pcs)"
                 type="number"
-                value={sales[product.attribute].pcs}
+                value={sales[product.attribute]?.pcs}
                 onChange={(e) => {
                   const inputValue = e.target.value
                     ? parseFloat(e.target.value)
@@ -156,20 +156,20 @@ export default function ItemizedRow({ product }: Props) {
                     [product.attribute]: {
                       ...inventory[product.attribute],
                       sales: {
-                        ...inventory[product.attribute].sales,
+                        ...inventory[product.attribute]?.sales,
                         pcs: inputValue,
                       },
                       remaining_stocks: computeRemainingEggs(
                         {
                           trays:
-                            inventory[product.attribute].initial_stocks.trays +
-                            inventory[product.attribute].delivered.trays,
-                          pcs: inventory[product.attribute].initial_stocks.pcs,
+                            inventory[product.attribute]?.initial_stocks.trays +
+                            inventory[product.attribute]?.delivered.trays,
+                          pcs: inventory[product.attribute]?.initial_stocks.pcs,
                         },
                         inputValue +
-                          inventory[product.attribute].sales.dozens *
+                          inventory[product.attribute]?.sales.dozens *
                             DOZEN_SIZE +
-                          inventory[product.attribute].sales.trays * TRAY_SIZE
+                          inventory[product.attribute]?.sales.trays * TRAY_SIZE
                       ),
                     },
                   });
@@ -182,7 +182,7 @@ export default function ItemizedRow({ product }: Props) {
               <span className="font-bold">
                 ₱
                 {(
-                  (sales[product.attribute].pcs ?? 0) * product.pcPrice!
+                  (sales[product.attribute]?.pcs ?? 0) * product.pcPrice!
                 ).toLocaleString()}
               </span>
             </div>

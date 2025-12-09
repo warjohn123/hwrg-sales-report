@@ -41,6 +41,11 @@ const initialSales: IHWRGEggsSales = {
     dozens: 0,
     pcs: 0,
   },
+  jumbo: {
+    trays: 0,
+    dozens: 0,
+    pcs: 0,
+  },
 };
 
 const defaultInventoryItem = {
@@ -73,6 +78,7 @@ const initialInventory: IHWRGEggsReportInventory = {
   medium: defaultInventoryItem,
   large: defaultInventoryItem,
   xl: defaultInventoryItem,
+  jumbo: defaultInventoryItem,
 };
 
 function assignNewInventoryItems(prevInventory: IHWRGEggsReportInventory) {
@@ -124,6 +130,8 @@ const HWRGEggsReportContextProvider = ({
   const [preparedBy, setPreparedBy] = useState<string>("");
   const [onDuty, setOnDuty] = useState<string>("");
 
+  console.log("report inventory", report?.inventory);
+
   useEffect(() => {
     if (report?.inventory) {
       setInventory(assignNewInventoryItems(report?.inventory));
@@ -150,7 +158,10 @@ const HWRGEggsReportContextProvider = ({
     sales.large.trays * HWRG_EGGS_PRODUCTS.LARGE.trayPrice +
     sales.xl.pcs * HWRG_EGGS_PRODUCTS.XL.pcPrice +
     sales.xl.dozens * HWRG_EGGS_PRODUCTS.XL.dozenPrice +
-    sales.xl.trays * HWRG_EGGS_PRODUCTS.XL.trayPrice;
+    sales.xl.trays * HWRG_EGGS_PRODUCTS.XL.trayPrice +
+    sales.jumbo.pcs * HWRG_EGGS_PRODUCTS.JUMBO.pcPrice +
+    sales.jumbo.dozens * HWRG_EGGS_PRODUCTS.JUMBO.dozenPrice +
+    sales.jumbo.trays * HWRG_EGGS_PRODUCTS.JUMBO.trayPrice;
 
   const totalExpenses = expenses.reduce(
     (partialSum, expense) => partialSum + (expense.value || 0),
