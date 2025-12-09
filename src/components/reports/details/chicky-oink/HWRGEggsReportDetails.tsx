@@ -30,7 +30,10 @@ function getTotalSales(sales: IHWRGEggsReport["sales"]): number {
     sales.large.trays * HWRG_EGGS_PRODUCTS.LARGE.trayPrice +
     sales.xl.pcs * HWRG_EGGS_PRODUCTS.XL.pcPrice +
     sales.xl.dozens * HWRG_EGGS_PRODUCTS.XL.dozenPrice +
-    sales.xl.trays * HWRG_EGGS_PRODUCTS.XL.trayPrice;
+    sales.xl.trays * HWRG_EGGS_PRODUCTS.XL.trayPrice +
+    (sales.jumbo?.pcs ?? 0) * HWRG_EGGS_PRODUCTS.JUMBO.pcPrice +
+    (sales.jumbo?.dozens ?? 0) * HWRG_EGGS_PRODUCTS.JUMBO.dozenPrice +
+    (sales.jumbo?.trays ?? 0) * HWRG_EGGS_PRODUCTS.JUMBO.trayPrice;
 
   return totalSales;
 }
@@ -67,7 +70,7 @@ export default function HWRGEggsReportDetails({ report }: Props) {
                     <div>
                       <b>PCS:</b>
                       {report.sales[key.toLowerCase() as keyof IHWRGEggsSales]
-                        .pcs ?? 0}
+                        ?.pcs ?? 0}
                     </div>
                   </div>
                   <div>X</div>
@@ -76,8 +79,8 @@ export default function HWRGEggsReportDetails({ report }: Props) {
                   <span className="font-bold">
                     ₱
                     {(
-                      (report.sales[HWRG_EGGS_PRODUCTS[key].attribute] ?? 0)
-                        .pcs * HWRG_EGGS_PRODUCTS[key].pcPrice!
+                      ((report.sales[HWRG_EGGS_PRODUCTS[key].attribute] ?? 0)
+                        ?.pcs ?? 0) * HWRG_EGGS_PRODUCTS[key].pcPrice!
                     ).toLocaleString()}
                   </span>
                 </div>
@@ -87,7 +90,7 @@ export default function HWRGEggsReportDetails({ report }: Props) {
                     <div>
                       <b>DOZENS:</b>
                       {report.sales[key.toLowerCase() as keyof IHWRGEggsSales]
-                        .dozens ?? 0}
+                        ?.dozens ?? 0}
                     </div>
                   </div>
                   <div>X</div>
@@ -98,8 +101,8 @@ export default function HWRGEggsReportDetails({ report }: Props) {
                   <span className="font-bold">
                     ₱
                     {(
-                      (report.sales[HWRG_EGGS_PRODUCTS[key].attribute] ?? 0)
-                        .dozens * HWRG_EGGS_PRODUCTS[key].dozenPrice!
+                      ((report.sales[HWRG_EGGS_PRODUCTS[key].attribute] ?? 0)
+                        ?.dozens ?? 0) * HWRG_EGGS_PRODUCTS[key].dozenPrice!
                     ).toLocaleString()}
                   </span>
                 </div>
@@ -108,7 +111,7 @@ export default function HWRGEggsReportDetails({ report }: Props) {
                     <div>
                       <b>TRAYS:</b>
                       {report.sales[key.toLowerCase() as keyof IHWRGEggsSales]
-                        .trays ?? 0}
+                        ?.trays ?? 0}
                     </div>
                   </div>
                   <div>X</div>
@@ -119,8 +122,8 @@ export default function HWRGEggsReportDetails({ report }: Props) {
                   <span className="font-bold">
                     ₱
                     {(
-                      (report.sales[HWRG_EGGS_PRODUCTS[key].attribute] ?? 0)
-                        .trays * HWRG_EGGS_PRODUCTS[key].trayPrice!
+                      ((report.sales[HWRG_EGGS_PRODUCTS[key].attribute] ?? 0)
+                        ?.trays ?? 0) * HWRG_EGGS_PRODUCTS[key].trayPrice!
                     ).toLocaleString()}
                   </span>
                 </div>

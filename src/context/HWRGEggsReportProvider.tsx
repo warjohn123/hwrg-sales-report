@@ -72,8 +72,8 @@ const defaultInventoryItem = {
 };
 
 const initialInventory: IHWRGEggsReportInventory = {
-  pl: defaultInventoryItem,
   pw: defaultInventoryItem,
+  pl: defaultInventoryItem,
   small: defaultInventoryItem,
   medium: defaultInventoryItem,
   large: defaultInventoryItem,

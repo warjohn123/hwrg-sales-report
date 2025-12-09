@@ -3,7 +3,11 @@ import {
   HWRGEggsReportContext,
   type HWRGEggsReportContextType,
 } from "../../../../context/hwrgEggsReportContext";
-import { computeRemainingEggs } from "../../../../lib/computeRemainingStocksOnEggs";
+import {
+  computeRemainingEggs,
+  DOZEN_SIZE,
+  TRAY_SIZE,
+} from "../../../../lib/computeRemainingStocksOnEggs";
 
 export default function HWRGEggsInventoryTable() {
   const { inventory, selectedBranch, setInventory } = useContext(
@@ -67,7 +71,9 @@ export default function HWRGEggsInventoryTable() {
                                 inventory[key].pull_out.trays,
                               pcs: inventory[key].initial_stocks.pcs,
                             },
-                            0
+                            inventory[key]?.sales.pcs +
+                              inventory[key]?.sales.dozens * DOZEN_SIZE +
+                              inventory[key]?.sales.trays * TRAY_SIZE
                           ),
                         },
                       });
@@ -96,7 +102,9 @@ export default function HWRGEggsInventoryTable() {
                                 inputValue,
                               pcs: inventory[key].initial_stocks.pcs,
                             },
-                            0
+                            inventory[key]?.sales.pcs +
+                              inventory[key]?.sales.dozens * DOZEN_SIZE +
+                              inventory[key]?.sales.trays * TRAY_SIZE
                           ),
                         },
                       });
