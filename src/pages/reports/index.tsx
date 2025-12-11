@@ -72,7 +72,7 @@ export default function ReportsPage() {
 
               {
                 id: "reports",
-                title: "Reports",
+                title: "Sales Reports",
                 subtitle: "All Reports",
                 content: <ReportsList currentUser={currentUser} />,
               },
