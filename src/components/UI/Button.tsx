@@ -21,7 +21,9 @@ export default function Button({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`cursor-pointer ${styles[buttonType]} ${className}`}
+      className={`cursor-pointer ${styles[buttonType]} ${
+        disabled ? "opacity-50 cursor-not-allowed" : ""
+      } ${className}`}
     >
       {text}
     </button>

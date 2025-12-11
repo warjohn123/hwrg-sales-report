@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../../../UI/Button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-// import {
-//   RemitReportContext,
-//   type RemitReportContextType,
-// } from "../../../../context/remitReportContext";
 import { createRemitReport } from "../../../../services/remit.service";
+import {
+  RemitReportContext,
+  type RemitReportContextType,
+} from "../../../../context/remitReportContext";
 
 export default function SubmitRemitReport() {
-  //   const { sales } = useContext(RemitReportContext) as RemitReportContextType;
+  const {
+    sales,
+    expenses,
+    addOns: add_ons,
+  } = useContext(RemitReportContext) as RemitReportContextType;
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -25,6 +29,9 @@ export default function SubmitRemitReport() {
           minute: "2-digit",
           hour12: true,
         })}`,
+        sales,
+        expenses,
+        add_ons,
       });
       toast.success("Successfully submitted");
       navigate("/reports");

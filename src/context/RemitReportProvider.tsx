@@ -12,10 +12,10 @@ const RemitReportContextProvider = ({
   const [addOns, setAddOns] = useState<RemitAddOn[]>([]);
   const [expenses, setExpenses] = useState<RemitExpense[]>([]);
   const [sales, setSales] = useState<{
-    "Chicky Oink": Record<number, number>;
-    Imagawayaki: Record<number, number>;
-    "Potato Fry": Record<number, number>;
-    "HWRG Eggs": Record<number, number>;
+    "Chicky Oink": Record<string, { branchId: number; amount: number }>;
+    Imagawayaki: Record<string, { branchId: number; amount: number }>;
+    "Potato Fry": Record<string, { branchId: number; amount: number }>;
+    "HWRG Eggs": Record<string, { branchId: number; amount: number }>;
   }>({
     "Chicky Oink": {},
     Imagawayaki: {},

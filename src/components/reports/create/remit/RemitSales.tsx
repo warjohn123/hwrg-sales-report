@@ -37,7 +37,7 @@ export default function RemitSales({ assignment }: Props) {
   }, [assignment]);
 
   const branchTotal = Object.values(sales[assignment] || {}).reduce(
-    (sum, val) => sum + val,
+    (sum, val) => sum + val.amount,
     0
   );
 
@@ -62,7 +62,10 @@ export default function RemitSales({ assignment }: Props) {
                     ...prev,
                     [assignment]: {
                       ...prev[assignment],
-                      [String(branch.id)]: value,
+                      [branch.branch_name]: {
+                        branchId: branch.id,
+                        amount: value,
+                      },
                     },
                   }));
                 }}

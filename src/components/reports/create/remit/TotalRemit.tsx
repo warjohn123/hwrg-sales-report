@@ -11,7 +11,7 @@ export default function TotalRemit() {
 
   const totalSales = Object.values(sales)
     .flatMap((branch) => Object.values(branch))
-    .reduce((sum, val) => sum + val, 0);
+    .reduce((sum, val) => sum + val.amount, 0);
 
   const totalAddOns = addOns.reduce((sum, val) => sum + val.value, 0);
 
