@@ -7,6 +7,7 @@ import ReportsPage from "./pages/reports";
 import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import AddRemitPage from "./pages/add-remit";
+import RemitReportDetailPage from "./pages/remit-detail";
 
 function App() {
   useEffect(() => {
@@ -35,6 +36,14 @@ function App() {
           element={
             <ProtectedRoute>
               <ReportsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/remit/:id"
+          element={
+            <ProtectedRoute>
+              <RemitReportDetailPage />
             </ProtectedRoute>
           }
         />

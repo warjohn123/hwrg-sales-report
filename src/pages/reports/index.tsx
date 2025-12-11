@@ -6,6 +6,8 @@ import { fetchUserDetails } from "../../services/user.service";
 import { useEffect, useState } from "react";
 import { USER_TYPE, type IUser } from "../../@types/User";
 import Version from "../../components/Version";
+import Tabs from "../../components/UI/Tabs";
+import RemitsList from "../../components/remits/list";
 
 export default function ReportsPage() {
   const navigate = useNavigate();
@@ -57,16 +59,41 @@ export default function ReportsPage() {
         </div>
       </div>
 
-      <div
-        className="flex flex-col justify-between"
-        style={{ height: "calc(100vh - 100px)" }}
-      >
-        <div className="overflow-x-auto">
-          <ReportsList currentUser={currentUser} />
-        </div>
+      {currentUser.type === USER_TYPE.COLLECTOR && (
+        <>
+          <Tabs
+            tabs={[
+              {
+                id: "remits",
+                title: "Remits",
+                subtitle: "All Remits",
+                content: <RemitsList />,
+              },
 
-        <Version />
-      </div>
+              {
+                id: "reports",
+                title: "Reports",
+                subtitle: "All Reports",
+                content: <ReportsList currentUser={currentUser} />,
+              },
+            ]}
+            initialIndex={0}
+            onChange={(i, t) => console.log("active", i, t.id)}
+          />
+        </>
+      )}
+      {currentUser.type !== USER_TYPE.COLLECTOR && (
+        <div
+          className="flex flex-col justify-between"
+          style={{ height: "calc(100vh - 100px)" }}
+        >
+          <div className="overflow-x-auto">
+            <ReportsList currentUser={currentUser} />
+          </div>
+
+          <Version />
+        </div>
+      )}
     </div>
   );
 }
