@@ -54,7 +54,7 @@ export default function ReportsPage() {
             }
             className="px-4 py-2 bg-blue-600 text-sm text-white rounded hover:bg-blue-700"
           >
-            Add Report
+            Add {currentUser.type === USER_TYPE.COLLECTOR ? "Remit" : "Report"}
           </Link>
         </div>
       </div>
