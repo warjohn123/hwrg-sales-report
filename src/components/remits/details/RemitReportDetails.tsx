@@ -1,14 +1,21 @@
+import { useNavigate } from "react-router-dom";
 import type { IRemitReport } from "../../../@types/RemitReport";
 import type { IAssignment } from "../../../enums/Assignment";
+import Button from "../../UI/Button";
 
 interface Props {
   remit: IRemitReport;
 }
 
 export default function RemitReportDetails({ remit }: Props) {
-  console.log("test", remit.remit_add_ons);
+  const navigate = useNavigate();
   return (
     <div className="p-5">
+      <Button
+        text="Back to Reports Page"
+        onClick={() => navigate("/reports")}
+        buttonType="primary"
+      />
       <h2 className="text-lg font-bold mb-4">Remit Report Details</h2>
 
       <p className="mb-2">

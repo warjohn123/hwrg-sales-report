@@ -81,7 +81,7 @@ export default function RemitsList() {
                   <Link to={`/remit/${report.id}`}>{report.title}</Link>
                 </td>
                 <td className="px-4 py-3 border-b font-bold">
-                  {report.totals?.remit_total}
+                  {report.totals?.remit_total.toLocaleString()}
                 </td>
                 <td className="px-4 py-3 border-b">{report.report_date}</td>
               </tr>
