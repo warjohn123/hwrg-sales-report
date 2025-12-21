@@ -1,3 +1,3 @@
 export default function Version() {
-  return <>Version 1.0.3</>;
+  return <>Version 1.0.4</>;
 }
