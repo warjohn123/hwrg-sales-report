@@ -3,6 +3,7 @@ import LoginForm from "../../components/auth/LoginForm";
 import { supabase } from "../../lib/supabase";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { fetchUserDetails } from "../../services/user.service";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function LoginPage() {
     }
 
     setIsLoggingIn(true);
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -22,6 +23,16 @@ export default function LoginPage() {
     if (error) {
       toast.error("Invalid access");
       setIsLoggingIn(false);
+      return;
+    }
+
+    const employee = data.user ? await fetchUserDetails(data.user.id) : null;
+
+    if (!employee?.is_active) {
+      await supabase.auth.signOut();
+      toast.error("Access denied");
+      setIsLoggingIn(false);
+      navigate("/");
       return;
     }
 
