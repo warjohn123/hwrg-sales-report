@@ -10,12 +10,12 @@ export const CHICKY_OINK_PRODUCTS: { [key: string]: IChickyOinkProductItem } = {
   REGULAR_CHICKEN: {
     name: "Regular Chicken",
     attribute: "regular_chicken",
-    price: 320,
+    price: 330,
   },
   SPICY_CHICKEN: {
     name: "Spicy Chicken",
     attribute: "spicy_chicken",
-    price: 330,
+    price: 340,
   },
   REGULAR_LIEMPO: {
     name: "Regular Liempo",
