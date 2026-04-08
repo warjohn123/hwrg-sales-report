@@ -27,7 +27,7 @@ export const CHICKY_OINK_PRODUCTS: { [key: string]: IChickyOinkProductItem } = {
     attribute: "spicy_liempo",
     price: 290,
   },
-  LIOG: { name: "Liog", attribute: "liog", price: 12 },
+  LIOG: { name: "Liog", attribute: "liog", price: 15 },
   SPICY_LIOG: {
     name: "Spicy Liog",
     attribute: "spicy_liog",
