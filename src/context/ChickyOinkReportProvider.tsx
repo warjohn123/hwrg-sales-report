@@ -40,6 +40,7 @@ const defaultInventoryItem = {
   pull_out: 0,
   sales: 0,
   remaining_stocks: 0,
+  day_old: 0,
   notes: "",
 };
 
@@ -57,6 +58,7 @@ function assignNewInventoryItems(prevInventory: IChickyOinkReportInventory) {
         pull_out: 0,
         sales: 0,
         remaining_stocks: prev ? prev.remaining_stocks : 0,
+        day_old: prev ? prev.day_old : 0,
         notes: "",
       };
     }
@@ -64,8 +66,8 @@ function assignNewInventoryItems(prevInventory: IChickyOinkReportInventory) {
 
   const sortedInventory = Object.fromEntries(
     CHICKY_OINK_DISPLAY_ORDER.map((key) => [key, newInventory[key]]).filter(
-      ([, val]) => val
-    )
+      ([, val]) => val,
+    ),
   );
 
   return sortedInventory;
@@ -132,7 +134,7 @@ const ChickyOinkReportContextProvider = ({
 
   const totalExpenses = expenses.reduce(
     (partialSum, expense) => partialSum + (expense.value || 0),
-    0
+    0,
   );
 
   return (

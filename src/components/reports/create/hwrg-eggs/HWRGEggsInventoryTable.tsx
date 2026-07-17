@@ -11,7 +11,7 @@ import {
 
 export default function HWRGEggsInventoryTable() {
   const { inventory, selectedBranch, setInventory } = useContext(
-    HWRGEggsReportContext
+    HWRGEggsReportContext,
   ) as HWRGEggsReportContextType;
 
   if (!selectedBranch) return <></>;
@@ -73,7 +73,7 @@ export default function HWRGEggsInventoryTable() {
                             },
                             inventory[key]?.sales.pcs +
                               inventory[key]?.sales.dozens * DOZEN_SIZE +
-                              inventory[key]?.sales.trays * TRAY_SIZE
+                              inventory[key]?.sales.trays * TRAY_SIZE,
                           ),
                         },
                       });
@@ -104,7 +104,7 @@ export default function HWRGEggsInventoryTable() {
                             },
                             inventory[key]?.sales.pcs +
                               inventory[key]?.sales.dozens * DOZEN_SIZE +
-                              inventory[key]?.sales.trays * TRAY_SIZE
+                              inventory[key]?.sales.trays * TRAY_SIZE,
                           ),
                         },
                       });

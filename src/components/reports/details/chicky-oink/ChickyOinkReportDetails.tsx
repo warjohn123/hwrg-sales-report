@@ -26,7 +26,9 @@ function getTotalSales(sales: ChickyOinkSales) {
     (sales.coke ? sales.coke * CHICKY_OINK_PRODUCTS.COKE.price : 0) +
     (sales.sprite ? sales.sprite * CHICKY_OINK_PRODUCTS.SPRITE.price : 0) +
     (sales.royal ? sales.royal * CHICKY_OINK_PRODUCTS.ROYAL.price : 0) +
-    (sales.mineral_water ? sales.mineral_water * CHICKY_OINK_PRODUCTS.MINERAL_WATER.price : 0);
+    (sales.mineral_water
+      ? sales.mineral_water * CHICKY_OINK_PRODUCTS.MINERAL_WATER.price
+      : 0);
 
   return totalSales;
 }
@@ -36,7 +38,7 @@ export default function ChickyOinkReportDetails({ report }: Props) {
 
   const totalExpenses = report.expenses.reduce(
     (partialSum, a) => partialSum + (a.value || 0),
-    0
+    0,
   );
 
   const totalRemit = getTotalSales(report.sales) - totalExpenses;
@@ -152,6 +154,7 @@ export default function ChickyOinkReportDetails({ report }: Props) {
                 <th className="border w-30 py-2">Pull-Out</th>
                 <th className="border w-30 py-2">Sales</th>
                 <th className="border w-30 py-2">Remaining Stocks</th>
+                <th className="border w-30 py-2">Bahaw</th>
                 <th className="border px-4 py-2">Notes</th>
               </tr>
             </thead>
@@ -160,7 +163,7 @@ export default function ChickyOinkReportDetails({ report }: Props) {
                 .sort(
                   (a, b) =>
                     CHICKY_OINK_DISPLAY_ORDER.indexOf(a) -
-                    CHICKY_OINK_DISPLAY_ORDER.indexOf(b)
+                    CHICKY_OINK_DISPLAY_ORDER.indexOf(b),
                 )
                 .map((key: string) => (
                   <tr key={key}>
@@ -181,6 +184,9 @@ export default function ChickyOinkReportDetails({ report }: Props) {
                     </td>
                     <td className="border px-4 py-2">
                       {report.inventory[key].remaining_stocks}
+                    </td>
+                    <td className="border px-4 py-2">
+                      {report.inventory[key].day_old}
                     </td>
                     <td className="border px-4 py-2">
                       {report.inventory[key].notes}

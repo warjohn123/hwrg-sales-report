@@ -6,7 +6,7 @@ import {
 
 export default function ChickyOinkInventoryTable() {
   const { inventory, selectedBranch, setInventory } = useContext(
-    ChickyOinkReportContext
+    ChickyOinkReportContext,
   ) as ChickyOinkReportContextType;
 
   if (!selectedBranch) return <></>;
@@ -25,6 +25,7 @@ export default function ChickyOinkInventoryTable() {
               <th className="border w-30 py-2">Pull-Out</th>
               <th className="border w-30 py-2">Sales</th>
               <th className="border w-30 py-2">Remaining Stocks</th>
+              <th className="border w-30 py-2">Bahaw</th>
               <th className="border px-4 py-2">Notes</th>
             </tr>
           </thead>
@@ -87,6 +88,25 @@ export default function ChickyOinkInventoryTable() {
                 <td className="border px-4 py-2">{inventory[key].sales}</td>
                 <td className="border px-4 py-2">
                   {inventory[key].remaining_stocks}
+                </td>
+                <td className="border px-4 py-2 w-30">
+                  <input
+                    type="number"
+                    className="w-25 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={inventory[key].day_old}
+                    onChange={(e) => {
+                      const inputValue = e.target.value
+                        ? parseFloat(e.target.value)
+                        : 0;
+                      setInventory({
+                        ...inventory,
+                        [key]: {
+                          ...inventory[key],
+                          day_old: inputValue,
+                        },
+                      });
+                    }}
+                  />
                 </td>
                 <td className="border px-4 py-2">
                   {
